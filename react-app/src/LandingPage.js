@@ -47,7 +47,9 @@ class MonthlyAnnualElectricBill extends Component
                             <Email value={this.props.email} onChange={this.props.emailStateHandler}/>
                         </div>
                         <div>
-                            <Button onClick={this.props.handleBtnClick} email={this.props.email}/>
+                            <Button onClick={this.props.handleBtnClick}/>
+                            {/* <Button disabled={this.props.givesEmailandMonthlyBill} onClick={this.props.handleBtnClick}/> */}
+
                         </div>
                     </div>
                 </div>

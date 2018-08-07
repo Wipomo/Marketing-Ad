@@ -10,7 +10,7 @@ class EVForm extends React.Component {
     return(
         <form>
             <label>What is your weekly commute in miles?</label><br/>
-            <input name="milesWeekly"></input><br/>
+            <input name="milesWeekly" onChange={this.props.weeklyMileageHandler}></input><br/>
 
             <div id ="different-alignment">
             <label>Vehicle Type</label><br/>
@@ -51,7 +51,7 @@ class EVForm extends React.Component {
                 <option > Volkswagen </option>
                 <option > Volvo </option>
               </select><br/>
-              <select id="vehicleModel" name="vehicleModel"  disabled={this.props.disableVehicleModel}>
+              <select id="vehicleModel" name="vehicleModel"  disabled={this.props.disableVehicleModel} onChange={this.props.vehicleModelHandler}>
                 <option > Model </option>
               </select><br/>
               <select name="vehicleYear" disabled="true">
@@ -64,7 +64,7 @@ class EVForm extends React.Component {
             </div>
 
               <label>How many miles do you drive per year?</label><br/>
-            <input name="milesYearly"></input><br/>
+            <input name="milesYearly" onChange={this.props.yearlyMileageHandler}></input><br/>
             <Button/>
         </form>
     )

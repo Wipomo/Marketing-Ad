@@ -9,11 +9,11 @@ class EVPage extends Component {
       <div>
         <h2>Interested to see how much an electric car can increase savings?</h2>
 
-        <EVForm vehicleMakeHandler = {this.props.vehicleMakeHandler} disableVehicleModel={this.props.disableVehicleModel}/>
+        <EVForm vehicleMakeHandler = {this.props.vehicleMakeHandler} 
+        disableVehicleModel={this.props.disableVehicleModel}
+        weeklyMileage={this.props.weeklyMileage} yearlyMileage={this.props.yearlyMileage}
+        weeklyMileageHandler={this.props.weeklyMileageHandler} yearlyMileage={this.props.yearlyMileageHandler}/>
 
-        <p>
-          Head to our website to learn more at <a href="https://wipomo-zoho-database.herokuapp.com/">Makello.com</a>.
-        </p>
       </div>
     );
   }

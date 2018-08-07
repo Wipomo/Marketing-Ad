@@ -24,6 +24,7 @@ class SavingsChartandCustomerData extends Component {
     return (
       <div>
         <div>
+          Chart component here
           <BillAmount amount ={this.props.amount}/>
         </div>
         <div>
@@ -34,8 +35,8 @@ class SavingsChartandCustomerData extends Component {
               <title> Get a custom energy report from Makello.</title>
               <input name ="fullName" placeholder="Full Name*" onChange={this.props.fullNameStateHandler}></input><br/>
               <input name="phone" placeholder="Phone" onChange={this.props.phoneStateHandler}></input><br/>
-              <input name="address" placeholder="Address*"></input><br/>
-              <input name="city" placeholder="City*"></input><br/>
+              <input name="streetAddress" placeholder="Address*" onChange={this.props.streetAddressStateHandler}></input><br/>
+              <input name="city" placeholder="City*" onChange={this.props.cityStateHandler}></input><br/>
               <select name="state">
                 <option defaultValue="CA"> CA </option>
                 <option value="AL"> AL </option>
@@ -88,12 +89,9 @@ class SavingsChartandCustomerData extends Component {
                 <option value="WV"> WV </option>
                 <option value="WI"> WI </option>
                 <option value="WY"> WY </option>
-
-                
-
               </select>
-              <input name="zipcode" placeholder="Zipcode*" onChange={this.props.addressStateHandler}></input><br/>
-              <Button disabled={true} onClick={this.props.handleBtnClick} />
+              <input name="zipcode" placeholder="Zipcode*" onChange={this.props.zipcodeStateHandler}></input><br/>
+              <Button onClick={this.props.handleBtnClick}/>
             </form>
           </div>
           
