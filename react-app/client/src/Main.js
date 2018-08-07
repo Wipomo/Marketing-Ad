@@ -9,6 +9,7 @@ import "./Main.css";
 
 
 class App extends Component{
+
     constructor(props){
         super(props);
         this.state={monthlyBill:50, email:"",
@@ -17,9 +18,11 @@ class App extends Component{
          givesNameandAddress:false,
          givesVehicleInfo: false,
          givesVehicleMilesandEVChoice:false,
+
          fullName:"", phone: "", streetAddress:"", city: "", zipcode:"",
          weeklyMileage:0, yearlyMileage:0, vehicleMake: "", vehicleModel:"",
-         disableVehicleModel: true, disableVehicleYear: true, disableLandingPageBtn: true}
+         disableVehicleModel: true, disableVehicleYear: true, disableCustomerDataButton:true,
+         disableLandingPageBtn: true, disableEVPageBtn: true}
 
         this.handleBtnClick = this.handleBtnClick.bind(this);
         this.handleSliderChange = this.handleSliderChange.bind(this);
@@ -35,7 +38,6 @@ class App extends Component{
         this.yearlyMileageHandler = this.yearlyMileageHandler.bind(this);
         this.vehicleMakeHandler = this.vehicleMakeHandler.bind(this);
         this.vehicleModelHandler = this.vehicleModelHandler.bind(this);
-
     }
 
     
@@ -65,7 +67,7 @@ class App extends Component{
         this.setState({email: e.target.value});
         if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){
             // store customer email and monthly bill in db,
-            console.log("passes email");
+            console.log("passes email set disabled to false");
             this.setState({disableLandingPageBtn: false});
             
             // check if input fits required standard
@@ -121,20 +123,21 @@ class App extends Component{
 
         if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){
             // store customer email and monthly bill in db,
-            console.log("passes email");
-            this.setState({givesEmailandMonthlyBill: true});
-            
+            //console.log("passes email");
+            this.setState({givesEmailandMonthlyBill: true});           
             // check if input fits required standard
         }
 
         if((this.state.fullName !== "")  && (this.state.streetAddress !== "") && (this.state.city !== "") && (this.state.zipcode !== "")){
             // we would need to validate this with Google Maps**
-
-            
             this.setState({givesNameandAddress: true});
             console.log("can set contact views to true");
         }
 
+
+        if(this.state.vehicleMake !== "" && this.state.vehicleModel!== "" && this.state.weeklyMileage !== "" & this.state.yearlyMileage !== ""){
+            this.setState({givesVehicleInfo:true})
+        }
 
 
         // checks for entering all data info for vehicle
@@ -166,17 +169,17 @@ class App extends Component{
                 view = <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName} phone={this.state.phone}
                 streetAddress={this.state.streetAddress} city={this.state.city} zipcode={this.state.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
                 streetAddressStateHandler={this.streetAddressStateHandler} cityStateHandler={this.cityStateHandler} zipcodeStateHandler={this.zipcodeStateHandler}
-                handleBtnClick={this.handleBtnClick} givesNameandAddress={this.state.givesNameandAddress}/>
+                handleBtnClick={this.handleBtnClick} givesNameandAddress={this.state.givesNameandAddress} />
             }
             else if (givesEmailandMonthlyBill && givesNameandAddress && !givesVehicleInfo){
                 // case where all info has been given besides ev info
                 view=<EVPage weeklyMileage={this.state.weeklyMileage} yearlyMileage={this.state.yearlyMileage}
-                 vehicleMakeHandler={this.vehicleMakeHandler} disableVehicleModel={this.state.disableVehicleModel}
-                 weeklyMileageHandler={this.weeklyMileageHandler} yearlyMileage={this.yearlyMileageHandler}/>
+                 vehicleMakeHandler={this.vehicleMakeHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
+                 weeklyMileageHandler={this.weeklyMileageHandler} yearlyMileageHandler={this.yearlyMileageHandler} givesVehicleInfo={this.state.givesVehicleInfo}/>
 
             }
             else if (givesEmailandMonthlyBill && givesNameandAddress && givesVehicleInfo){
-                view=<ThankYouRedirectPage/>
+                view=<ThankYouRedirectPage givesVehicleInfo={this.state.givesVehicleInfo} disableEVPageBtn={this.state.disableEVPageBtn} />
             }
             else{
                 console.log("Should never come hear.. nothing to render")

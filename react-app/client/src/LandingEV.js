@@ -9,10 +9,11 @@ class EVPage extends Component {
       <div>
         <h2>Interested to see how much an electric car can increase savings?</h2>
 
-        <EVForm vehicleMakeHandler = {this.props.vehicleMakeHandler} 
+        <EVForm vehicleMakeHandler = {this.props.vehicleMakeHandler} vehicleModelHandler={this.props.vehicleModelHandler}
         disableVehicleModel={this.props.disableVehicleModel}
         weeklyMileage={this.props.weeklyMileage} yearlyMileage={this.props.yearlyMileage}
-        weeklyMileageHandler={this.props.weeklyMileageHandler} yearlyMileage={this.props.yearlyMileageHandler}/>
+        weeklyMileageHandler={this.props.weeklyMileageHandler} yearlyMileageHandler={this.props.yearlyMileageHandler}
+        disableEVPageBtn={this.props.disableEVPageBtn}/>
 
       </div>
     );

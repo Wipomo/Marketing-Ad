@@ -51,8 +51,8 @@ export class Button extends React.Component{
     // this.handleSliderChange = this.handleSliderChange.bind(this);
     // this.emailStateHandler = this.emailStateHandler.bind(this);
     render(){
-        // return <button id="button_attrb" disabled={!this.props.disabled} onClick={this.props.onClick} >Submit</button>
-        return <button id="button_attrb" onClick={this.props.onClick} >Submit</button>
+         return <button id="button_attrb" disabled={this.props.disabled} onClick={this.props.onClick} >Submit</button>
+        //return <button id="button_attrb" onClick={this.props.onClick} >Submit</button>
     }
 //React.createElement('button', { id: "button_attrb", handlebtnclick:props.handleBtnCLick}, "Submit")
 };
