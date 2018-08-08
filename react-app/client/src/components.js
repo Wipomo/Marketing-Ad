@@ -19,10 +19,10 @@ export class Slider extends Component{
 };
 
 export class BillAmount extends Component{
-    constructor(props){
-        super(props);
-        //this.state = {amount: this.props.amount};
-    }
+    // constructor(props){
+    //     super(props);
+    //     //this.state = {amount: this.props.amount};
+    // }
     render(){
         //console.log("Amt is: "+ this.props.amount);
         return(<div>

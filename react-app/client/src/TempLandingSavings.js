@@ -1,31 +1,22 @@
 import React, { Component } from "react";
 import { Button, BillAmount} from './components';
+import { Link, Route } from "react-router-dom";
+import EVPage from "./LandingEV"
+
 
  
 class SavingsChartandCustomerData extends Component {
 
-  constructor(props){
-    super(props);
-    //this.state={amount:props.amount }
-    //this.handleBtnClick = this.handleBtnClick.bind(this);
-    // this.handleSliderChange = this.handleSliderChange.bind(this);
-    // this.emailStateHandler = this.emailStateHandler.bind(this);
-  }
-
-  // handleBtnClick=()=>{
-  //   console.log("Comes in land savings button"); 
-  //   // checks if form inputs are all filled,
-  //   if(true){
-  //     this.props.history.push("/contact");
-  //   }
+  // constructor(props){
+  //   super(props);
   // }
 
   render() {
     return (
       <div>
         <div>
-          Chart component here
-          <BillAmount amount ={this.props.amount}/>
+          
+          <BillAmount amount={this.props.amount}/>
         </div>
         <div>
           {/* div should have solar array bg image */}
@@ -45,7 +36,9 @@ class SavingsChartandCustomerData extends Component {
                 <option value="CA"> WA </option>
               </select>
               <input name="zipcode" placeholder="Zipcode*" onChange={this.props.zipcodeStateHandler}></input><br/>
-              <Button onClick={this.props.handleBtnClick} disabled={this.props.disableSavingsButton}/>
+              <Button onClick={this.props.handleBtnClick} disabled={this.props.disableSavingsPageBtn}/>
+              {/* <li><Link to="/ev">Electric Vehicles Page</Link></li>
+              <Route path="/ev" component={EVPage}/> */}
             </form>
           </div>
           

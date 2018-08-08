@@ -1,27 +1,13 @@
 import React, { Component } from 'react';
 import {Email, Slider, BillAmount, Button} from './components';
+import { Link, Route, Redirect } from "react-router-dom";
+import SavingsChartandCustomerData from "./TempLandingSavings";
 
 class MonthlyAnnualElectricBill extends Component
     {
-        constructor(props){
-            super(props);
-            //this.state={valueChosen: 50, email:"", }
-
-            // this.handleBtnClick = this.handleBtnClick.bind(this);
-            // this.handleSliderChange = this.handleSliderChange.bind(this);
-            // this.emailStateHandler = this.emailStateHandler.bind(this);
-        }
-
-        // handleSliderChange=(e)=>{
-        //     this.setState({valueChosen: e.target.value});
+        // constructor(props){
+        //     super(props);
         // }
-        
-
-        // emailStateHandler=(e)=>{
-        //     console.log(e.target.value);
-        //     //this.setState({email: e.target.value});
-        // }
-
 
          render=()=>{	
             return (
@@ -48,17 +34,13 @@ class MonthlyAnnualElectricBill extends Component
                         </div>
                         <div>
                             <Button onClick={this.props.handleBtnClick} disabled={this.props.disableLandingPageBtn}/>
-                            {/* <Button disabled={this.props.givesEmailandMonthlyBill} onClick={this.props.handleBtnClick}/> */}
 
+                            {/* <Link to="/savings">Savings/Form Page</Link> */}
+                           
+                            
                         </div>
                     </div>
                 </div>
-            // React.createElement('div', {id: 'landingContainer'}, 
-            // React.createElement('text', {},  "What's your monthly electric bill?"),
-            // React.createElement('div', {id:'sliderContainer'},  React.createElement(Slider, {min:"50", max:"5000", step:"50", onInput: this.handleChange}, null)),
-            // React.createElement('div', null,React.createElement(BillAmount, {amount: 50}, null)),
-            // React.createElement('div', null, React.createElement(Email, {onInput: this.emailStateHandler}, null)),
-            // React.createElement(Button, {showCostSavings: this.handleBtnClick}, null))
             );
          }
     }

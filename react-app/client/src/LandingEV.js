@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import EVForm from "./EVForm";
+import ThankYouRedirectPage from "./Redirect.js";
+import { Link , Route} from "react-router-dom";
+
 
 
 class EVPage extends Component {
@@ -7,13 +10,17 @@ class EVPage extends Component {
     return (
       // USe conditional rendering to detrmine weather to display ev form or not
       <div>
+
         <h2>Interested to see how much an electric car can increase savings?</h2>
 
         <EVForm vehicleMakeHandler = {this.props.vehicleMakeHandler} vehicleModelHandler={this.props.vehicleModelHandler}
         disableVehicleModel={this.props.disableVehicleModel}
         weeklyMileage={this.props.weeklyMileage} yearlyMileage={this.props.yearlyMileage}
         weeklyMileageHandler={this.props.weeklyMileageHandler} yearlyMileageHandler={this.props.yearlyMileageHandler}
-        disableEVPageBtn={this.props.disableEVPageBtn}/>
+        disableEVPageBtn={this.props.disableEVPageBtn} handleBtnClick={this.props.handleBtnClick}/> 
+        
+        {/* <li><Link to="/thanks">Thank you Page</Link></li>
+        <Route path="/thanks" component={ThankYouRedirectPage}/> */}
 
       </div>
     );
