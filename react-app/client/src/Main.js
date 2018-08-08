@@ -250,7 +250,7 @@ class App extends Component{
             <div>
                 <h1>Makello Header for SPAd</h1>
                 {/* change page-list display to none/inline-block to hide/show controller*/}
-                <ul className="header" style={{display:"inline-block"}}>
+                <ul className="header" style={{display:"none"}}>
                     <li><Link exact to="/">Landing/Bills Page</Link></li>
                     <li><Link to="/landing">Landing/Bills Page</Link></li>
                     <li><Link to="/savings">Savings/Form Page</Link></li>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Chart} from './components/chart/chart.jsx'
+// import {Chart} from './components/chart/chart.jsx'
 import { Button, BillAmount} from './components';
 import { Link, Route } from "react-router-dom";
 import EVPage from "./LandingEV"
@@ -16,7 +16,7 @@ class SavingsChartandCustomerData extends Component {
     return (
       <div>
         <div>
-          <Chart data = {[]} minimumYear = {2010} maximumYear = {2015} />
+          {/* <Chart data = {[]} minimumYear = {2010} maximumYear = {2015} /> */}
           <BillAmount amount ={this.props.amount}/>
         </div>
         <div>
