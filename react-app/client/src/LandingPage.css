@@ -10,7 +10,7 @@
     width: 70%;
     margin: auto;
     position: relative;
-    top: -20%;
+    top: -25%;
     text-align: center;
     background-color: #ffffff;
 }
@@ -32,7 +32,7 @@
 #sliderContainer
 {
     height: 50%;
-    width: 85%;
+    width: 90%;
     margin: 0 auto;
     background-color: #d0d0d0;
 }
@@ -75,18 +75,36 @@
 .div-with-bg
 {
     height: 70%;
+    position: relative;
+}
+
+.image
+{
+    height: 100%;
+    width: 100%;
+    z-index: 1;
     background: url('./images/landing-bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     /* background-attachment: fixed; */
     background-position: center 0;
-    filter: grayscale(45%);
+    /* filter: grayscale(50%); */
+    filter: brightness(75%);
+    opacity: 0.75;
+}
+
+.text
+{
+    top: 0%;
+    z-index: 2;
+    position: absolute;
 }
 
 .savings-title
 {
     color: #ffffff;
     text-align: center;
+    font-family: 'Montserrat';
     font-size: 3em;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     padding: 5%;
@@ -96,5 +114,6 @@
 {
     color: #ffffff;
     text-align: center;
+    font-size: 2.5em;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
