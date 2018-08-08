@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Email, Slider, BillAmount, Button} from './components';
 import { Link, Route, Redirect } from "react-router-dom";
 import SavingsChartandCustomerData from "./TempLandingSavings";
+import "./LandingPage.css";
 
 class MonthlyAnnualElectricBill extends Component
     {
@@ -13,30 +14,35 @@ class MonthlyAnnualElectricBill extends Component
             return (
                 <div id="landingContainer">
                     {/* below div should have background photo */}
-                    <div>
-                        <h1> You dont need lots of panels to save money on solar.</h1>
-                        <h2> See how much you can save.</h2>
+                    <div class="div-with-bg">
+                        <h1 class="savings-title"> You Don't Need Tons of Solar Panels to Save Money.</h1>
+                        <h2 class="savings-subtitle"> See How Much You Can Save.</h2>
                     </div>
                     
                     {/* below div should have a white background color */}
-                    <div>
-                        What's your monthly electric bill?
+                    <div id="landingBox">
+
+                        <div id="monthlyText"><p>What's your monthly electric bill?</p></div>
 
                         <div id ="sliderContainer">
-                            <Slider min="50" max="5000" step="50" onInput={this.props.handleSliderChange}/>
+                            <div id="sliderContent">
+                                <Slider min="50" max="5000" step="50" onInput={this.props.handleSliderChange}/>
+                                {/* Billing Amount should eventually be replaced with slider component css */}
+                                <BillAmount amount={this.props.monthlyBill} />
+                            </div>
                         </div>
 
-                        {/* Billing Amount should eventually be replaced with sliderr component css */}
-                        <BillAmount amount={this.props.monthlyBill} />
+                        <div id="emailContainer">
+                                <div id="emailContent">
+                                    <Email value={this.props.email} onChange={this.props.emailStateHandler}/>
+                                </div>
+                                <div id="buttonContent">
+                                    <Button onClick={this.props.handleBtnClick} disabled={this.props.disableLandingPageBtn}/>
 
-                        <div>
-                            <Email value={this.props.email} onChange={this.props.emailStateHandler}/>
-                        </div>
-                        <div>
-                            <Button onClick={this.props.handleBtnClick} disabled={this.props.disableLandingPageBtn}/>
-
-                            {/* <Link to="/savings">Savings/Form Page</Link> */}
-                           
+                                    {/* <Link to="/savings">Savings/Form Page</Link> */}
+                                
+                                    
+                                </div>
                             
                         </div>
                     </div>
