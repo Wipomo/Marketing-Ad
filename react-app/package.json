@@ -7,7 +7,9 @@
     "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
   },
   "dependencies": {
+    "@google/maps": "^0.5.5",
     "express": "^4.16.2",
+    "google-maps-react": "^2.0.2",
     "highcharts": "^6.1.1"
   },
   "devDependencies": {

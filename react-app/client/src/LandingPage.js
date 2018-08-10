@@ -36,8 +36,17 @@ class MonthlyAnnualElectricBill extends Component
                             <Button onClick={this.props.handleBtnClick} disabled={this.props.disableLandingPageBtn}/>
 
                             {/* <Link to="/savings">Savings/Form Page</Link> */}
-                           
                             
+                            {/* <Link to={{
+                    pathname: './savings',
+                    state: {
+                        amount:this.props.monthlyBill, fullName:this.props.fullName, phone:this.props.phone,
+                fullAddress:this.props.fullAddress, fullNameStateHandler:this.fullNameStateHandler, phoneStateHandler:this.phoneStateHandler,
+                fullAddressStateHandler:this.fullAddressStateHandler, cityStateHandler:this.cityStateHandler, zipcodeStateHandler:this.zipcodeStateHandler,
+                handleBtnClick:this.handleBtnClick, disableSavingsPageBtn:this.props.disableSavingsPageBtn
+                    }
+
+                }}>Click me</Link> */}
                         </div>
                     </div>
                 </div>

@@ -7,10 +7,10 @@ class ThankYouRedirectPage extends Component {
       // USe conditional rendering to detrmine weather to display ev form or not
       <div>
         <h1>Thank you for your interest!</h1>
-        <h2> We will get back to you shortly</h2>
+        <h2> We will get back to you soon</h2>
 
         <p>
-          Head to our website to learn more at <a href="https://wipomo-zoho-database.herokuapp.com/">Makello.com</a>.
+          Visit <a href="https://wipomo-zoho-database.herokuapp.com/">Makello.com</a> for more information.
         </p>
       </div>
     );

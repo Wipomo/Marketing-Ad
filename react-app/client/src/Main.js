@@ -9,6 +9,7 @@ import "./Main.css";
 
 
 class App extends Component{
+    
 
     constructor(props){
         super(props);
@@ -17,7 +18,7 @@ class App extends Component{
          givesNameandAddress:false,
          givesVehicleInfo: false,
 
-         fullName:"", phone: "", streetAddress:"", city: "", zipcode:"",
+         fullName:"", phone: "", fullAddress:"", city: "", zipcode:"",
          weeklyMileage:0, yearlyMileage:0, vehicleMake: "", vehicleModel:"",
          disableVehicleModel: true, disableVehicleYear: true, disableCustomerDataButton:true,
          disableLandingPageBtn: true, disableEVPageBtn: true, disableSavingsPageBtn: true}
@@ -28,7 +29,7 @@ class App extends Component{
 
         this.fullNameStateHandler = this.fullNameStateHandler.bind(this);
         this.phoneStateHandler = this.phoneStateHandler.bind(this);
-        this.streetAddressStateHandler = this.streetAddressStateHandler.bind(this);
+        this.fullAddressStateHandler = this.fullAddressStateHandler.bind(this);
         this.zipcodeStateHandler = this.zipcodeStateHandler.bind(this);
         this.cityStateHandler = this.cityStateHandler.bind(this);
 
@@ -79,17 +80,22 @@ class App extends Component{
         console.log("Fullname"+ e.target.value);
         this.setState({fullName: e.target.value});
 
+        if(e.target.value !== "" && this.state.givesNameandAddress !== ""){
+            this.setState({disableSavingsPageBtn: false})
+        }
+
     }
     phoneStateHandler=(e)=>{
         console.log("phone"+ e.target.value);
         this.setState({phone: e.target.value});
     }
-    streetAddressStateHandler=(e)=>{
-        console.log("street"+e.target.value);
-        this.setState({streetAddress: e.target.value});
+    fullAddressStateHandler=(e)=>{
+        console.log("street "+e.target.value);
+        this.setState({fullAddress: e.target.value});
 
-        if(e.target.value === ""){
-            this.setState({})
+        // verify google address
+        if(e.target.value !== "" && this.state.fullName !== ""){
+            this.setState({disableSavingsPageBtn: false})
         }
     }
     cityStateHandler=(e)=>{
@@ -170,14 +176,20 @@ class App extends Component{
                 //console.log("handle btn on email and monthly bill");
                 this.setState({givesEmailandMonthlyBill: true});           
                 // check if input fits required standard
+                console.log("Everything set just gotta redirect to component page");
+                //<Redirect push to="/savings"/>
+                //<Route path="/savings"  component={SavingsChartandCustomerData}/>
         
             }
         }
         else if(!this.state.givesNameandAddress){
-            if((this.state.fullName !== "")  && (this.state.streetAddress !== "") && (this.state.city !== "") && (this.state.zipcode !== "")){
-                // we would need to validate this with Google Maps**
-                this.setState({givesNameandAddress: true});
-                console.log("can set contact views to true");
+            if((this.state.fullName !== "")  && (this.state.fullAddress !== "")){
+                // we would need to validate fullAdress with Google Maps***
+                var googleValidated = true;
+                if(googleValidated){
+                    this.setState({givesNameandAddress: true});
+                    console.log("can set contact views to true");
+                }
         
             }
         }
@@ -203,35 +215,35 @@ class App extends Component{
             // in the case where no input has been given
             if(!givesEmailandMonthlyBill && !givesNameandAddress && !givesVehicleInfo){
                 console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
-
+                
+                // <Redirect push to="/landing"/>                
                 view = <MonthlyAnnualElectricBill amount={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler}
                 handleSliderChange={this.handleSliderChange} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.fullNameStateHandler}
                 monthlyBill={this.state.monthlyBill} handleBtnClick={this.handleBtnClick} disableLandingPageBtn = {this.state.disableLandingPageBtn}/>
-                
             }
             else if(givesEmailandMonthlyBill && !givesNameandAddress && !givesVehicleInfo){
                 // case where only email and monthly bill has been given
                 console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
 
                 console.log("gave email but not name and address yet");
-                <Redirect to='./savings'/>
 
-
+                //<Redirect push to="/savings"/>
                 view = <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName} phone={this.state.phone}
-                streetAddress={this.state.streetAddress} city={this.state.city} zipcode={this.state.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
-                streetAddressStateHandler={this.streetAddressStateHandler} cityStateHandler={this.cityStateHandler} zipcodeStateHandler={this.zipcodeStateHandler}
+                fullAddress={this.state.fullAddress} city={this.state.city} zipcode={this.state.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
+                fullAddressStateHandler={this.fullAddressStateHandler} cityStateHandler={this.cityStateHandler} zipcodeStateHandler={this.zipcodeStateHandler}
                 handleBtnClick={this.handleBtnClick} disableSavingsPageBtn={this.state.disableSavingsPageBtn} />
             }
             else if (givesEmailandMonthlyBill && givesNameandAddress && !givesVehicleInfo){
                 console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
                 // case where all info has been given besides ev info
+                //<Redirect push to="/ev"/>
                 view=<EVPage weeklyMileage={this.state.weeklyMileage} yearlyMileage={this.state.yearlyMileage}
                  vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.state.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
                  weeklyMileageHandler={this.weeklyMileageHandler} yearlyMileageHandler={this.yearlyMileageHandler} givesVehicleInfo={this.state.givesVehicleInfo} handleBtnClick={this.handleBtnClick}/>
-
             }
             else if (givesEmailandMonthlyBill && givesNameandAddress && givesVehicleInfo){
                 console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
+                //<Redirect push to="/thanks"/>
                 view=<ThankYouRedirectPage />
             }
             else{
@@ -251,32 +263,45 @@ class App extends Component{
                 <h1>Makello Header for SPAd</h1>
                 {/* change page-list display to none/inline-block to hide/show controller*/}
                 <ul className="header" style={{display:"none"}}>
-                    <li><Link exact to="/">Landing/Bills Page</Link></li>
                     <li><Link to="/landing">Landing/Bills Page</Link></li>
                     <li><Link to="/savings">Savings/Form Page</Link></li>
                     <li><Link to="/ev">Electric Vehicles Page</Link></li>
                     <li><Link to="/thanks">Thank you Page</Link></li>
                 </ul>
 
-                {/* <Route path="/savings" component={SavingsChartandCustomerData} amount={this.props.monthlyBill} fullName={this.props.fullName} phone={this.props.phone}
-                streetAddress={this.props.streetAddress} city={this.props.city} zipcode={this.props.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
+                <Route path="/landing" component={MonthlyAnnualElectricBill}/>
+                <Route path="/savings" component={SavingsChartandCustomerData}/>
+                <Route path="/ev" component={EVPage}/>
+                <Route path="/thanks" component={ThankYouRedirectPage}/>
+
+                {/* <Route path="/landing" component={MonthlyAnnualElectricBill} amount={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler}
+                handleSliderChange={this.handleSliderChange} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.fullNameStateHandler}
+                monthlyBill={this.state.monthlyBill} handleBtnClick={this.handleBtnClick} disableLandingPageBtn = {this.state.disableLandingPageBtn}/> */}
+
+                {/* <Route path="/savings" component={SavingsChartandCustomerData} amount={this.state.monthlyBill} fullName={this.statefullName} phone={this.state.phone}
+                streetAddress={this.state.streetAddress} city={this.state.city} zipcode={this.state.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
                 streetAddressStateHandler={this.streetAddressStateHandler} cityStateHandler={this.cityStateHandler} zipcodeStateHandler={this.zipcodeStateHandler}
-                handleBtnClick={this.handleBtnClick} disableSavingsPageBtn={this.props.disableSavingsPageBtn}/> */}
+                handleBtnClick={this.handleBtnClick} disableSavingsPageBtn={this.state.disableSavingsPageBtn}/> */}
+
+                {/* <Route path="/ev" component={EVPage} weeklyMileage={this.state.weeklyMileage} yearlyMileage={this.state.yearlyMileage}
+                 vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.state.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
+                 weeklyMileageHandler={this.weeklyMileageHandler} yearlyMileageHandler={this.yearlyMileageHandler} givesVehicleInfo={this.state.givesVehicleInfo} handleBtnClick={this.handleBtnClick}/> */}
+
 
 
                 <div className="content">
 
                 {/* we add the exact so its route does not match other routes */}
-               
-                                
+
                 {view}
 
                 </div>
                 
 
             </div>
-            
             </BrowserRouter>
+
+            
         );
     }
 }

@@ -9,9 +9,8 @@ class EVForm extends React.Component {
   render() {
     return(
         <form>
-            <label>What is your weekly commute in miles?</label><br/>
+            <label>What is your daily commute in miles?</label><br/>
             <input name="milesWeekly" onChange={this.props.weeklyMileageHandler}></input><br/>
-
             <div id ="different-alignment">
             <label>Vehicle Type</label><br/>
               <select id= "vehicleMake" name="vehicleMake" onChange={this.props.vehicleMakeHandler}>
@@ -67,7 +66,7 @@ class EVForm extends React.Component {
               </select><br/>
             </div>
 
-              <label>How many miles do you drive per year?</label><br/>
+              <label>How many miles per gallon do you drive per year?</label><br/>
             <input name="milesYearly" onChange={this.props.yearlyMileageHandler}></input><br/>
             <Button onClick={this.props.handleBtnClick} disabled={this.props.disableEVPageBtn} />
         </form>
