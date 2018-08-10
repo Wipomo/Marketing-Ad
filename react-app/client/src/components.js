@@ -10,11 +10,13 @@ export class Slider extends Component{
     render(){
         return(
             <div>
+            <form>
             $50
             <input type="range" id="landing_p_slider"
             min={this.props.min} max={this.props.max} step={this.props.step} onInput={this.props.onInput} ></input>
             <output for="landing_p_slider" onforminput="value = landing_p_slider.valueAsNumber;"></output>
             $5000
+            </form>
             </div>
         )
     }

@@ -67,6 +67,7 @@
 
 #buttonContent
 {  
+    font-family: 'Montserrat';
     height: 50%;
     position: relative;
     top: 30%;
@@ -91,8 +92,8 @@
     background-repeat: no-repeat;
     /* background-attachment: fixed; */
     background-position: center 0;
-    /* filter: grayscale(50%); */
-    filter: brightness(75%);
+    filter: grayscale(75%);
+    filter: brightness(50%);
     opacity: 0.75;
 }
 
