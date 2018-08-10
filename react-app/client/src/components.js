@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import "./components.css"
 
 // These are examples of functional stateless components
 // in comparison to React class components
@@ -10,8 +11,9 @@ export class Slider extends Component{
         return(
             <div>
             $50
-            <input type="range" id="landing_p_slider" 
+            <input type="range" id="landing_p_slider"
             min={this.props.min} max={this.props.max} step={this.props.step} onInput={this.props.onInput} ></input>
+            <output for="landing_p_slider" onforminput="value = landing_p_slider.valueAsNumber;"></output>
             $5000
             </div>
         )

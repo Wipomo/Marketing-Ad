@@ -1,0 +1,18 @@
+#landing_p_slider
+{
+    -webkit-appearance: none;
+    width: 50%;
+    height: 10px;
+    border-radius: 5px;
+}
+
+#landing_p_slider::-webkit-slider-thumb
+{
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1b30a5;
+}

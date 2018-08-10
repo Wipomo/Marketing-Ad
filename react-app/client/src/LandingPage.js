@@ -15,6 +15,8 @@ class MonthlyAnnualElectricBill extends Component
                 <div id="landingContainer">
                     {/* below div should have background photo */}
                     <div class="div-with-bg">
+                        <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'/>
+
                         <div class="image"></div>
                         <div class="text">
                             <h1 class="savings-title"> You Don't Need Tons of Solar Panels to Save Money.</h1>
