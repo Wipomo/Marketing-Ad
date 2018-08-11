@@ -1,12 +1,27 @@
 import React, { Component } from 'react';
 import {Email, Slider, BillAmount, Button} from '../../components';
-import { Link} from "react-router-dom";
+import { Link, Redirect} from "react-router-dom";
 
-const LandingPageBox = ({handleSliderChange, monthlyBill, email, emailStateHandler, disableLandingPageBtn}) =>{
-    const savings ={
-        pathname: '/savings',
-        state: {amount: 60}
+class LandingPageBox extends React.Component{
+
+    state = {
+        toSavings: false
     }
+
+    handleBtnClick = () =>{
+        this.setState({toSavings: true});
+    };
+
+    render(){
+        const savings ={
+            pathname: '/savings',
+            state: {amount: 60}
+        }
+    if (this.state.toSavings){
+        return <Redirect to='/savings' />
+    }
+
+    const {handleSliderChange, monthlyBill, email, emailStateHandler, disableLandingPageBtn} = this.props;
     return(
         <div id="landingBox">
 
@@ -43,6 +58,8 @@ const LandingPageBox = ({handleSliderChange, monthlyBill, email, emailStateHandl
         
         
         </div>
-)}
+)
+}
+}
 
 export default LandingPageBox
