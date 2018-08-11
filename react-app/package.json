@@ -10,7 +10,8 @@
     "@google/maps": "^0.5.5",
     "express": "^4.16.2",
     "google-maps-react": "^2.0.2",
-    "highcharts": "^6.1.1"
+    "highcharts": "^6.1.1",
+    "history": "^4.7.2"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"

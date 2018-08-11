@@ -1,6 +1,7 @@
 // This page may need the Makello header and footer as well.
 import React, {Component } from 'react';
-import { BrowserRouter, Link, Redirect, Route } from "react-router-dom";
+import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
+import createHistory from "history/createBrowserHistory";
 import MonthlyAnnualElectricBill from "./LandingPage";
 import SavingsChartandCustomerData from "./TempLandingSavings";
 import EVPage from "./LandingEV";
@@ -8,8 +9,8 @@ import ThankYouRedirectPage from "./Redirect";
 import "./Main.css";
 
 
+
 class App extends Component{
-    
 
     constructor(props){
         super(props);
@@ -17,9 +18,11 @@ class App extends Component{
          givesEmailandMonthlyBill:false,
          givesNameandAddress:false,
          givesVehicleInfo: false,
+         hasError: false,
+
 
          fullName:"", phone: "", fullAddress:"", city: "", zipcode:"",
-         weeklyMileage:0, yearlyMileage:0, vehicleMake: "", vehicleModel:"",
+         dailyMileage:0, milesPerGallon:0, vehicleMake: "", vehicleModel:"",
          disableVehicleModel: true, disableVehicleYear: true, disableCustomerDataButton:true,
          disableLandingPageBtn: true, disableEVPageBtn: true, disableSavingsPageBtn: true}
 
@@ -30,35 +33,45 @@ class App extends Component{
         this.fullNameStateHandler = this.fullNameStateHandler.bind(this);
         this.phoneStateHandler = this.phoneStateHandler.bind(this);
         this.fullAddressStateHandler = this.fullAddressStateHandler.bind(this);
-        this.zipcodeStateHandler = this.zipcodeStateHandler.bind(this);
-        this.cityStateHandler = this.cityStateHandler.bind(this);
+        // this.zipcodeStateHandler = this.zipcodeStateHandler.bind(this);
+        // this.cityStateHandler = this.cityStateHandler.bind(this);
 
-        this.weeklyMileageHandler = this.weeklyMileageHandler.bind(this);
-        this.yearlyMileageHandler = this.yearlyMileageHandler.bind(this);
+        this.dailyMileageHandler = this.dailyMileageHandler.bind(this);
+        this.milesPerGallonHandler = this.milesPerGallonHandler.bind(this);
         this.vehicleMakeHandler = this.vehicleMakeHandler.bind(this);
         this.vehicleModelHandler = this.vehicleModelHandler.bind(this);
     }
 
     
-      componentDidMount() {
+    componentDidMount() {
         this.callApi()
-          .then(res => this.setState({ response: res.express }))
-          .catch(err => console.log(err));
-      }
+            .then(res => this.setState({ response: res.express }))
+            .catch(err => console.log(err));
+    }
     
-      callApi = async () => {
+
+    componentDidCatch(error, info) {
+        // Display fallback UI
+        this.setState({ hasError: true });
+        console.log("Found error in Main component did catch");
+        // You can also log the error to an error reporting service
+        // logErrorToMyService(error, info);
+        // logComponentStackToMyService(info.componentStack);
+    }
+  
+    callApi = async () => {
         const response = await fetch('/');
         const body = await response.json();
-    
+
         if (response.status !== 200) throw Error(body.message);
-    
+
         return body;
-      };
+    };
       
     
 
     handleSliderChange=(e)=>{
-        //console.log("Comes in here");
+        console.log("Comes in slider event");
         this.setState({monthlyBill: e.target.value});
     }
     emailStateHandler=(e)=>{
@@ -76,6 +89,7 @@ class App extends Component{
 
         }
     }
+
     fullNameStateHandler=(e)=>{
         console.log("Fullname"+ e.target.value);
         this.setState({fullName: e.target.value});
@@ -85,10 +99,12 @@ class App extends Component{
         }
 
     }
+
     phoneStateHandler=(e)=>{
         console.log("phone"+ e.target.value);
         this.setState({phone: e.target.value});
     }
+
     fullAddressStateHandler=(e)=>{
         console.log("street "+e.target.value);
         this.setState({fullAddress: e.target.value});
@@ -98,28 +114,30 @@ class App extends Component{
             this.setState({disableSavingsPageBtn: false})
         }
     }
-    cityStateHandler=(e)=>{
-        console.log("city" +e.target.value);
-        this.setState({city: e.target.value});
-        if(this.state.zipcode === ""){
-            this.setState({disableSavingsPageBtn: true})
-        }
-    }
-    zipcodeStateHandler=(e)=>{
-        console.log("zip"+e.target.value);
-        this.setState({zipcode: e.target.value});
-        if(this.state.zipcode !== ""){
-            this.setState({disableSavingsPageBtn: false})
-        }
-        else{
-            this.setState({disableSavingsPageBtn: true})
 
-        }
-    }
+    // cityStateHandler=(e)=>{
+    //     console.log("city" +e.target.value);
+    //     this.setState({city: e.target.value});
+    //     if(this.state.zipcode === ""){
+    //         this.setState({disableSavingsPageBtn: true})
+    //     }
+    // }
 
-    weeklyMileageHandler=(e)=>{
+    // zipcodeStateHandler=(e)=>{
+    //     console.log("zip"+e.target.value);
+    //     this.setState({zipcode: e.target.value});
+    //     if(this.state.zipcode !== ""){
+    //         this.setState({disableSavingsPageBtn: false})
+    //     }
+    //     else{
+    //         this.setState({disableSavingsPageBtn: true})
+
+    //     }
+    // }
+
+    dailyMileageHandler=(e)=>{
         console.log(e.target.value);
-        this.setState({weeklyMileage: e.target.value});
+        this.setState({dailyMileage: e.target.value});
 
         // confirm that all data has been entered
         if(e.target.value === ""){
@@ -129,9 +147,10 @@ class App extends Component{
             this.setState({disableEVPageBtn: false})
         }
     }
-    yearlyMileageHandler=(e)=>{
+
+    milesPerGallonHandler=(e)=>{
         console.log(e.target.value);
-        this.setState({yearlyMileage: e.target.value});
+        this.setState({milesPerGallon: e.target.value});
 
         // confirm that all data has been entered
         if(e.target.value === ""){
@@ -140,9 +159,8 @@ class App extends Component{
         else if(this.state.vehicleMake !== ""){
             this.setState({disableEVPageBtn: false})
         }
-
-
     }
+
     vehicleMakeHandler=(e)=>{
         console.log("Vehicle Make: "+ e.target.value);
         this.setState({vehicleMake: e.target.value})
@@ -156,6 +174,7 @@ class App extends Component{
         }
 
     }
+
     vehicleModelHandler=(e)=>{
         console.log("Vehicle Model: "+ e.target.value);
         this.setState({vehicleModel: e.target.value})
@@ -167,7 +186,7 @@ class App extends Component{
 
     handleBtnClick=()=>{
         // took out 2 backslashes to eliminate some uneccesary backlash errors**
-        //console.log("Comes in main page button");
+        console.log("Comes in main page button");
         //window.location("./stuff");
 
         if(!this.state.givesEmailandMonthlyBill){
@@ -176,10 +195,13 @@ class App extends Component{
                 //console.log("handle btn on email and monthly bill");
                 this.setState({givesEmailandMonthlyBill: true});           
                 // check if input fits required standard
-                console.log("Everything set just gotta redirect to component page");
-                //<Redirect push to="/savings"/>
-                //<Route path="/savings"  component={SavingsChartandCustomerData}/>
-        
+                console.log("Main set just gotta redirect to component page");
+                <Redirect to='/savings'/>
+                //console.log(history);
+                //console.log();
+                console.log("Should have redirected to new page by this time");
+
+                //<Route path="/savings"  component={SavingsChartandCustomerData}/>        
             }
         }
         else if(!this.state.givesNameandAddress){
@@ -204,52 +226,72 @@ class App extends Component{
         }   
     }
 
-
     render(){
+        const history = createHistory();
 
-            const givesEmailandMonthlyBill = this.state.givesEmailandMonthlyBill;
-            const givesNameandAddress = this.state.givesNameandAddress;
-            const givesVehicleInfo = this.state.givesVehicleInfo;
-            let view;
 
-            // in the case where no input has been given
-            if(!givesEmailandMonthlyBill && !givesNameandAddress && !givesVehicleInfo){
-                console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
-                
-                // <Redirect push to="/landing"/>                
-                view = <MonthlyAnnualElectricBill amount={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler}
-                handleSliderChange={this.handleSliderChange} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.fullNameStateHandler}
-                monthlyBill={this.state.monthlyBill} handleBtnClick={this.handleBtnClick} disableLandingPageBtn = {this.state.disableLandingPageBtn}/>
-            }
-            else if(givesEmailandMonthlyBill && !givesNameandAddress && !givesVehicleInfo){
-                // case where only email and monthly bill has been given
-                console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
+        // Get the current location.
+        const location = history.location;
+        
+        // Listen for changes to the current location.
+        const unlisten = history.listen((location, action) => {
+            // location is an object like window.location
+            console.log(action, location.pathname, location.state);
+        })
+          
+        // // To stop listening, call the function returned from listen().
+        // unlisten()
 
-                console.log("gave email but not name and address yet");
+        // Use push, replace, and go to navigate around.
+        
+        // history.push(landing);
+        // history.replace(landing);
+        //console.log(history);
 
-                //<Redirect push to="/savings"/>
-                view = <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName} phone={this.state.phone}
-                fullAddress={this.state.fullAddress} city={this.state.city} zipcode={this.state.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
-                fullAddressStateHandler={this.fullAddressStateHandler} cityStateHandler={this.cityStateHandler} zipcodeStateHandler={this.zipcodeStateHandler}
-                handleBtnClick={this.handleBtnClick} disableSavingsPageBtn={this.state.disableSavingsPageBtn} />
-            }
-            else if (givesEmailandMonthlyBill && givesNameandAddress && !givesVehicleInfo){
-                console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
-                // case where all info has been given besides ev info
-                //<Redirect push to="/ev"/>
-                view=<EVPage weeklyMileage={this.state.weeklyMileage} yearlyMileage={this.state.yearlyMileage}
-                 vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.state.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
-                 weeklyMileageHandler={this.weeklyMileageHandler} yearlyMileageHandler={this.yearlyMileageHandler} givesVehicleInfo={this.state.givesVehicleInfo} handleBtnClick={this.handleBtnClick}/>
-            }
-            else if (givesEmailandMonthlyBill && givesNameandAddress && givesVehicleInfo){
-                console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
-                //<Redirect push to="/thanks"/>
-                view=<ThankYouRedirectPage />
-            }
-            else{
-                console.log("Should never come hear.. nothing to render")
-                view=<ThankYouRedirectPage />
-            }
+        const givesEmailandMonthlyBill = this.state.givesEmailandMonthlyBill;
+        const givesNameandAddress = this.state.givesNameandAddress;
+        const givesVehicleInfo = this.state.givesVehicleInfo;
+        let view;
+
+        // // in the case where no input has been given
+        // if(!givesEmailandMonthlyBill && !givesNameandAddress && !givesVehicleInfo){
+        //     console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
+            
+        //     // <Redirect push to="/landing"/>                
+        //     view = <MonthlyAnnualElectricBill amount={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler}
+        //     handleSliderChange={this.handleSliderChange} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.fullNameStateHandler}
+        //     monthlyBill={this.state.monthlyBill} handleBtnClick={this.handleBtnClick} disableLandingPageBtn = {this.state.disableLandingPageBtn}/>
+        // }
+        // else if(givesEmailandMonthlyBill && !givesNameandAddress && !givesVehicleInfo){
+        //     // case where only email and monthly bill has been given
+        //     console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
+
+        //     console.log("gave email but not name and address yet");
+
+        //     //<Redirect push to="/savings"/>
+        //     view = <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName} phone={this.state.phone}
+        //     fullAddress={this.state.fullAddress} city={this.state.city} zipcode={this.state.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
+        //     fullAddressStateHandler={this.fullAddressStateHandler} cityStateHandler={this.cityStateHandler} zipcodeStateHandler={this.zipcodeStateHandler}
+        //     handleBtnClick={this.handleBtnClick} disableSavingsPageBtn={this.state.disableSavingsPageBtn} />
+        // }
+        // else if (givesEmailandMonthlyBill && givesNameandAddress && !givesVehicleInfo){
+        //     console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
+        //     // case where all info has been given besides ev info
+        //     //<Redirect push to="/ev"/>
+        //     view=<EVPage dailyyMileage={this.state.dailyMileage} milesPerGallon={this.state.milesPerGallon}
+        //         vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.state.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
+        //         weeklyMileageHandler={this.weeklyMileageHandler} yearlyMileageHandler={this.yearlyMileageHandler} givesVehicleInfo={this.state.givesVehicleInfo} handleBtnClick={this.handleBtnClick}/>
+        // }
+        // else if (givesEmailandMonthlyBill && givesNameandAddress && givesVehicleInfo){
+        //     console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
+        //     //<Redirect push to="/thanks"/>
+        //     view=<ThankYouRedirectPage />
+        // }
+        // else{
+        //     console.log("Should never come hear.. nothing to render")
+        //     view=<ThankYouRedirectPage />
+        // }
+
 
         return(
             // The HashRouter component provides
@@ -258,7 +300,6 @@ class App extends Component{
 
             // We may want to use a BrowserRouter for dynamic back end server in comparison to
             // HashRouter that serves only static files
-            <BrowserRouter>
             <div>
                 <h1>Makello Header for SPAd</h1>
                 {/* change page-list display to none/inline-block to hide/show controller*/}
@@ -269,38 +310,44 @@ class App extends Component{
                     <li><Link to="/thanks">Thank you Page</Link></li>
                 </ul>
 
-                <Route path="/landing" component={MonthlyAnnualElectricBill}/>
-                <Route path="/savings" component={SavingsChartandCustomerData}/>
-                <Route path="/ev" component={EVPage}/>
-                <Route path="/thanks" component={ThankYouRedirectPage}/>
-
-                {/* <Route path="/landing" component={MonthlyAnnualElectricBill} amount={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler}
-                handleSliderChange={this.handleSliderChange} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.fullNameStateHandler}
-                monthlyBill={this.state.monthlyBill} handleBtnClick={this.handleBtnClick} disableLandingPageBtn = {this.state.disableLandingPageBtn}/> */}
-
-                {/* <Route path="/savings" component={SavingsChartandCustomerData} amount={this.state.monthlyBill} fullName={this.statefullName} phone={this.state.phone}
-                streetAddress={this.state.streetAddress} city={this.state.city} zipcode={this.state.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
-                streetAddressStateHandler={this.streetAddressStateHandler} cityStateHandler={this.cityStateHandler} zipcodeStateHandler={this.zipcodeStateHandler}
-                handleBtnClick={this.handleBtnClick} disableSavingsPageBtn={this.state.disableSavingsPageBtn}/> */}
-
-                {/* <Route path="/ev" component={EVPage} weeklyMileage={this.state.weeklyMileage} yearlyMileage={this.state.yearlyMileage}
-                 vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.state.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
-                 weeklyMileageHandler={this.weeklyMileageHandler} yearlyMileageHandler={this.yearlyMileageHandler} givesVehicleInfo={this.state.givesVehicleInfo} handleBtnClick={this.handleBtnClick}/> */}
-
-
-
                 <div className="content">
+                    {/* <Link to={landing}> click to start </Link> */}
+                    
+                    {/* <Redirect to={landing}/> */}
+                    {/* <Route path="/" component={MonthlyAnnualElectricBill}/> */}
+                    <Switch>
+                    <Route exact path="/" render={(props)=>(
+                        <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.props.email} emailStateHandler={this.emailStateHandler} 
+                         handleSliderChange={this.handleSliderChange} handleBtnClick={this.handleBtnClick}disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
+                    )}/>
 
-                {/* we add the exact so its route does not match other routes */}
+                    <Route path="/landing" render={(props)=>(
+                        <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.props.email} emailStateHandler={this.emailStateHandler} 
+                         handleSliderChange={this.handleSliderChange} handleBtnClick={this.handleBtnClick}disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
+                    )}/>
 
-                {view}
+                    <Route path="/savings" render={(props)=>(
+                        <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName}
+                        fullNameStateHandler={this.fullNameStateHandler} phone={this.state.phone} phoneStateHandler={this.fullNameStateHandler}
+                        fullAddress={this.state.fullAddress} fullAddressStateHandler={this.fullAddressStateHandler}
+                        handleBtnClick={this.handleBtnClick} disableSavingsPageBtn= {this.state.disableSavingsPageBtn}/>  
+                    )}/>
+
+                    <Route path="/ev" render={(props)=>(
+                        <EVPage dailyMileage={this.state.dailyMileage} milesPerGallon={this.state.milesPerGallon}
+                        vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
+                        dailyMileageHandler={this.dailyMileageHandler} milesPerGallonHandler={this.milesPerGallonHandler} givesVehicleInfo={this.state.givesVehicleInfo} handleBtnClick={this.handleBtnClick}/> 
+                    )}/>
+
+                    <Route path="/thanks" component={ThankYouRedirectPage}/>
+                    </Switch>
+
+                    {/* we add the exact so its route does not match other routes */}
+
+                    {/* {view} */}
 
                 </div>
-                
-
             </div>
-            </BrowserRouter>
-
             
         );
     }

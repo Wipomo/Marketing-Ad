@@ -4,21 +4,57 @@ import { Link, Route, Redirect } from "react-router-dom";
 import SavingsChartandCustomerData from "./TempLandingSavings";
 import "./LandingPage.css";
 
+
 class MonthlyAnnualElectricBill extends Component
     {
         // constructor(props){
         //     super(props);
+        //     this.state= {amount: 100}
         // }
+        // componentDidMount=()=>{
+   
+        //     var handleSli = this.props.location.state.amount;
+        //     console.log("Component mounted !!! amount: " + amount);
+        //   }
+        handleBtnClick=()=>{
+            // took out 2 backslashes to eliminate some uneccesary backlash errors**
+            console.log("Comes in INNER page button");
+            //window.location("./stuff");
+            console.log("this.props.email: "+ this.props.email);
+            console.log("reemail: "+ this.props.email);
+            <Redirect to='/savings'/>
+                if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.props.email)){
+                    // store customer email and monthly bill in db,
+                    //console.log("handle btn on email and monthly bill");
+                    //this.setState({givesEmailandMonthlyBill: true});           
+                    // check if input fits required standard
+                    console.log("Everything set in INNER handler just gotta redirect to component page");
+                    <Redirect to='/savings'/>
+                    //console.log(history);
+                    //console.log();
+                    console.log("Should have redirected to new page by this time");    
+                }
+        }
 
          render=()=>{	
+
+            const savings ={
+                pathname: '/savings',
+                state: {amount: 60}
+                // , fullName:this.props.fullName, phone:this.props.phone, fullAddress:this.props.fullAddress,
+                //     fullNameStateHandler:this.fullNameStateHandler, phoneStateHandler:this.phoneStateHandler,fullAddressStateHandler:this.fullAddressStateHandler,
+                //     handleBtnClick:this.handleBtnClick, disableSavingsPageBtn:this.props.disableSavingsPageBtn
+                // }
+            }
+
             return (
                 <div id="landingContainer">
                     {/* below div should have background photo */}
-                    <div class="div-with-bg">
-                        <div class="image"></div>
-                        <div class="text">
-                            <h1 class="savings-title"> You Don't Need Tons of Solar Panels to Save Money.</h1>
-                            <h2 class="savings-subtitle"> See How Much You Can Save.</h2>
+                    <div className="div-with-bg">
+                        <div className="image"></div>
+                        <div className="text">
+                            <h1 className="savings-title"> You Don't Need Tons of Solar Panels to Save Money.</h1>
+                            <h2 className="savings-subtitle"> See How Much You Can Save.</h2>
                         </div>
                         
                     </div>
@@ -41,23 +77,24 @@ class MonthlyAnnualElectricBill extends Component
                                     <Email value={this.props.email} onChange={this.props.emailStateHandler}/>
                                 </div>
                                 <div id="buttonContent">
-                                    <Button onClick={this.props.handleBtnClick} disabled={this.props.disableLandingPageBtn}/>
-
-                            {/* <Link to="/savings">Savings/Form Page</Link> */}
-                            
-                            {/* <Link to={{
-                    pathname: './savings',
-                    state: {
-                        amount:this.props.monthlyBill, fullName:this.props.fullName, phone:this.props.phone,
-                fullAddress:this.props.fullAddress, fullNameStateHandler:this.fullNameStateHandler, phoneStateHandler:this.phoneStateHandler,
-                fullAddressStateHandler:this.fullAddressStateHandler, cityStateHandler:this.cityStateHandler, zipcodeStateHandler:this.zipcodeStateHandler,
-                handleBtnClick:this.handleBtnClick, disableSavingsPageBtn:this.props.disableSavingsPageBtn
-                    }
-
-                }}>Click me</Link> */}
+                                    <Button onClick={this.handleBtnClick} disabled={this.props.disableLandingPageBtn}/>
+                                </div>
                         </div>
+                        <Link to={savings}>Savings/Form Page</Link>
+                        
+                        {/* <Redirect to={location}/> */}
+                        {/* history.push(location)
+                        history.replace(location) */}
+                            
+                        {/* browserHistory.push({pathname:'/savings', state: {message: "hello, im a passed message!"}}); */}
+
+
+                
+
+                        {/* <Route path="/savings" component={SavingsChartandCustomerData}/> */}
+                        
+                    
                     </div>
-                </div>
                 </div>
             );
          }

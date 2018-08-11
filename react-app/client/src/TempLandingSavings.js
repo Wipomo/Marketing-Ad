@@ -9,14 +9,21 @@ import { userInfo } from "os";
 //  var autocomplete = new window.google.maps.places.Autocomplete(
 //   document.getElementById('autocomplete'),{types: ['address']});
 
-  var autocomplete=null;
-  var initAuto = false
+var autocomplete=null;
+var initAuto = false;
+
 class SavingsChartandCustomerData extends Component {
 
   // constructor(props){
   //   super(props);
+    
   // }
-  
+
+  // componentDidMount=()=>{
+   
+  //   var amount = this.props.location.state.amount;
+  //   console.log("Component mounted !!! amount: " + amount);
+  // }
 
   initAutocomplete=()=>{
 
@@ -78,6 +85,7 @@ class SavingsChartandCustomerData extends Component {
   }
 
   render() {
+// console.log(this.props.location);
     return (
       <div>
         <div>
@@ -92,15 +100,11 @@ class SavingsChartandCustomerData extends Component {
               <title> Get a custom energy report from Makello.</title>
               <input name ="fullName" placeholder="Full Name*" onChange={this.props.fullNameStateHandler}></input><br/>
               <input name="phone" placeholder="Phone" onChange={this.props.phoneStateHandler}></input><br/>
-              <input id="autocomplete" name="fullAddress" className="controls" type="text" placeholder="Enter full address*" onFocus={this.fillInAddress} onChange={this.props.fullAddressStateHandler}></input><br/>
-              {/* <input id="street_number" name="street_number" placeholder="Apt/Bld #" disabled={true} ></input><br/>
-              <input id="street_name" placeholder="Street name" disabled={true}></input><br/>
-              <input id="city" placeholder="City" disabled={true}></input><br/>
-              <input id="zip_code" placeholder="Zipcode" disabled={true}></input><br/>
-              <input id="country" placeholder="Country" disabled={true}></input><br/> */}
+              <input id="autocomplete" name="fullAddress" className="controls" type="text" placeholder="Enter full address*"
+                onFocus={this.fillInAddress} onChange={this.props.fullAddressStateHandler}></input><br/>
               <Button onClick={this.props.handleBtnClick} disabled={this.props.disableSavingsPageBtn}/>
-              {/* <li><Link to="/ev">Electric Vehicles Page</Link></li>
-              <Route path="/ev" component={EVPage}/>*/}
+              <li><Link to="/ev">Electric Vehicles Page</Link></li>
+              {/* <Route path="/ev" component={EVPage}/> */}
 
             </form>
           </div>
