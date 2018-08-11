@@ -2,7 +2,7 @@ import React, { Component } from "react";
 // import {Chart} from './components/chart/chart.jsx'
 import { Button, BillAmount} from './components';
 import { Link, Route } from "react-router-dom";
-import EVPage from "./LandingEV"
+import SavingsChart from "./landing_savings";
 import { userInfo } from "os";
 
 
@@ -89,6 +89,7 @@ class SavingsChartandCustomerData extends Component {
     return (
       <div>
         <div>
+          <SavingsChart monthlyBillingAmount={this.props.amount}/>
           {/* <Chart data = {[]} minimumYear = {2010} maximumYear = {2015} /> */}
           <BillAmount amount ={this.props.amount}/>
         </div>

@@ -1,6 +1,6 @@
-
+// import HighChart from 'highcharts';
 import React, {Component } from "react"; 
-import {HighChart} from './landing_savings_chart.js';
+import MakelloHighChart from './components/chart/landing_savings_chart';
 
 const MIN_YEAR = 2018;
 const MAX_YEAR = 2026;
@@ -16,10 +16,20 @@ var systemSizeToSystemDescriptionMap = new Map([
     ["5", "Premium"]
 ]);
 
-class view_savings extends Component{
+class SavingsChart extends Component{
+    constructor(props){
+        super(props);
+        this.state={monthlyBillingAmount: this.props.monthlyBillingAmount, // This amount is dynamically generated.
+            system_size: 1,
+            showForm: false,
+            bucket_savings: "$0",
+            sys_description: "Choose a System Size"
+        }
+    }
+
     getInitialState () {
         return this.state = {
-            monthlyBillingAmount: monthlyBillingAmountGlobal, // This amount is dynamically generated.
+            monthlyBillingAmount: this.props.monthlyBillingAmount, // This amount is dynamically generated.
             system_size: 1,
             showForm: false,
             bucket_savings: "$0",
@@ -43,11 +53,11 @@ class view_savings extends Component{
         })
         get_system_size_data(this.state.monthlyBillingAmount, this.state.system_size);
     }
-    handleClick() {
-        this.setState({
-            showForm: !this.state.showForm
-        })
-    }
+    // handleClick() {
+    //     this.setState({
+    //         showForm: !this.state.showForm
+    //     })
+    // }
     handleFormSubmitButton() {
         // validate then add form data to db, for specific customer,
         
@@ -62,12 +72,12 @@ class view_savings extends Component{
         return (
             React.createElement('div', {},
                 React.createElement('div', {}, React.createElement(MonthlyBill, {
-                    monthlyBillings: this.state.monthlyBillingAmount
+                    monthlyBillings: this.props.monthlyBillingAmount
                 }, null)),
                 React.createElement('div', {
                     id: "bucket_savings_container"
                 }, 'You can save', React.createElement(BucketSavings, {
-                    monthlyBillings: this.state.monthlyBillingAmount,
+                    monthlyBillings: this.props.monthlyBillingAmount,
                     bucket_savings: this.state.bucket_savings
                 }, null), "annual with 100% Clean Energy"),
                 React.createElement('div', {
@@ -82,44 +92,46 @@ class view_savings extends Component{
                 React.createElement(sliderText, {
                     text: systemSizeToSystemDescriptionMap.get(this.state.system_size),
                 }, null),
-                React.createElement(getReportBtn, {
-                    handleClick: this.handleClick
-                }, null),
-                React.createElement(customerForms, {
-                    showForm: this.state.showForm,
-                    handleFormSubmitButton: this.handleFormSubmitButton
-                }, null)
+                // React.createElement(getReportBtn, {
+                //     handleClick: this.handleClick
+                // }, null),
+                // React.createElement(customerForms, {
+                //     showForm: this.state.showForm,
+                //     handleFormSubmitButton: this.handleFormSubmitButton
+                // }, null)
             ));
     }
 };
 
-var sliderText = React.createClass({
-    getDefaultProps: function () {
+class sliderText extends React.Component{
+    getDefaultProps=()=>{
         return {
             text: "Choose A System Size!"
         };
-    },
-    render: function () {
+    }
+
+    render=()=> {
         return React.createElement('text', {}, this.props.text);
     }
-});
+};
 
-var SavingsRate = React.createClass({
-    render: function () {
-        // Monthly billing amount is this.props.monthlyBillings
-        //let buckets = Object.keys(annualElectricBillToMaxSavingsPercent);
-        let monthlyRatePercentage = 0;
-        for (var i = 0; i < buckets.length; i++) {
-            if (buckets[i] > (this.props.monthlyBillings * 12)) {
-                //monthlyRatePercentage = annualElectricBillToMaxSavingsPercent[buckets[i]]
-                i = buckets.length;
-            }
-        }
-        return React.createElement('div', {}, 'Your monthly savings rate: ' + monthlyRatePercentage);
-    }
-});
-var MonthlyBill = React.createClass({
-    render: function () {
+// var SavingsRate = React.createClass({
+//     render: function () {
+//         // Monthly billing amount is this.props.monthlyBillings
+//         //let buckets = Object.keys(annualElectricBillToMaxSavingsPercent);
+//         let monthlyRatePercentage = 0;
+//         for (var i = 0; i < buckets.length; i++) {
+//             if (buckets[i] > (this.props.monthlyBillings * 12)) {
+//                 //monthlyRatePercentage = annualElectricBillToMaxSavingsPercent[buckets[i]]
+//                 i = buckets.length;
+//             }
+//         }
+//         return React.createElement('div', {}, 'Your monthly savings rate: ' + monthlyRatePercentage);
+//     }
+// });
+
+class MonthlyBill extends React.Component{
+    render=()=> {
         return React.createElement('text', {
             id: 'monthly-bill-input'
         }, this.props.monthlyBillings);
@@ -130,10 +142,10 @@ var MonthlyBill = React.createClass({
         //     id: 'monthly-bill-input'
         // }, null);
     }
-});
+};
 
-var BucketSavings = React.createClass({
-    render: function () {
+class BucketSavings extends React.Component{
+    render=()=>{
         update_max_bucket_savings(this.props.monthlyBillings);
         // console.log("returned bucket savings is: " + bucket_savings2);
         return (
@@ -143,7 +155,7 @@ var BucketSavings = React.createClass({
                 }, this.props.bucket_savings))
         );
     }
-});
+};
 
 var update_max_bucket_savings = function (monthlyBillings) {
     var bill_input = monthlyBillings;
@@ -225,16 +237,16 @@ var get_system_size_data = function (monthlyBillings, system_size) {
                 if (chart) {
                     chart.setData(dataToReturn);
                 } else {
-                    chart = new HighChart('chartContainer', dataToReturn, MIN_YEAR, MAX_YEAR);
+                    chart = new MakelloHighChart('chartContainer', dataToReturn, MIN_YEAR, MAX_YEAR);
                 }
             }
         );
     });
 }
 // 	// return cost_savings_data;
-var Chart = React.createClass({
+class Chart extends React.Component{
 
-    componentDidMount: function () {
+    componentDidMount() {
         //console.log("Component did mount!");
         if (this.props.monthlyBillings && this.props.system_size) {
             //console.log("here is the monthly billings: ");
@@ -244,9 +256,9 @@ var Chart = React.createClass({
             get_system_size_data(this.props.monthlyBillings, this.props.system_size)
 
         }
-    },
+    }
 
-    render: function () {
+    render() {
         if (chart) {
             //console.log("Hey we got a chart!");
             if (this.props.monthlyBillings && this.props.system_size) {
@@ -259,10 +271,10 @@ var Chart = React.createClass({
 
         return null;
     }
-});
+};
 
-var Slider = React.createClass({
-    render: function () {
+class Slider extends React.Component{
+    render() {
         return (React.createElement('input', {
             // set max to number of system sizes
             min: "1",
@@ -273,56 +285,56 @@ var Slider = React.createClass({
             type: "range"
         }))
     }
-});
+};
 
-var getReportBtn = React.createClass({
-    render: function () {
-        return (
-            React.createElement('div', {}, React.createElement('button', {
-                id: 'btn',
-                onClick: this.props.handleClick
-            }, "Prove It!"))
-        )
-    }
-});
+// class getReportBtn extends React.Component{
+//     render() {
+//         return (
+//             React.createElement('div', {}, React.createElement('button', {
+//                 id: 'btn',
+//                 onClick: this.props.handleClick
+//             }, "Prove It!"))
+//         )
+//     }
+// };
 
 
-var customerForms = React.createClass({
+// class customerForms extends React.Component{
 
-    render: function () {
-        return React.createElement('div', {
-            className: this.props.showForm ? "visible" : "not_visible"
-        }, React.createElement('input', {
-            type: "text",
-            placeholder: "Full Name*",
-            id:'fullName'
-        }, null), React.createElement('input', {
-            type: "text",
-            placeholder: "Phone",
-            id:'phoneNumber'
-        }, null), React.createElement('input', {
-            type: "text",
-            placeholder: "Address*",
-            id: 'address'
-        }, null), React.createElement('input', {
-            type: "text",
-            placeholder: "City*",
-            id: 'city'
-        }, null), React.createElement('input', {
-            type: "text",
-            placeholder: "State*",
-            id:'state'
-        }, null), React.createElement('input', {
-            type: "text",
-            placeholder: "Zipcode",
-            id:'zipcode'
-        }, null), React.createElement('button', {
-            type: "button",
-            onClick: this.props.handleFormSubmitButton
-        }, "Submit"))
-    }
-});
+//     render() {
+//         return React.createElement('div', {
+//             className: this.props.showForm ? "visible" : "not_visible"
+//         }, React.createElement('input', {
+//             type: "text",
+//             placeholder: "Full Name*",
+//             id:'fullName'
+//         }, null), React.createElement('input', {
+//             type: "text",
+//             placeholder: "Phone",
+//             id:'phoneNumber'
+//         }, null), React.createElement('input', {
+//             type: "text",
+//             placeholder: "Address*",
+//             id: 'address'
+//         }, null), React.createElement('input', {
+//             type: "text",
+//             placeholder: "City*",
+//             id: 'city'
+//         }, null), React.createElement('input', {
+//             type: "text",
+//             placeholder: "State*",
+//             id:'state'
+//         }, null), React.createElement('input', {
+//             type: "text",
+//             placeholder: "Zipcode",
+//             id:'zipcode'
+//         }, null), React.createElement('button', {
+//             type: "button",
+//             onClick: this.props.handleFormSubmitButton
+//         }, "Submit"))
+//     }
+// };
 
-export default view_savings;
+export default SavingsChart;
 // ReactDOM.render(
 //     React.createElement(view_savings, {}), document.getElementById('react-test'));

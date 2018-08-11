@@ -60,9 +60,3 @@ export class Button extends React.Component{
     }
 //React.createElement('button', { id: "button_attrb", handlebtnclick:props.handleBtnCLick}, "Submit")
 };
-    // React.createElement('div', {id: 'landingContainer'}, 
-    // React.createElement('text', {},  "What's your monthly electric bill?"),
-    // React.createElement('div', {id:'sliderContainer'},  React.createElement(Slider, {min:"50", max:"5000", step:"50", onInput: this.handleChange}, null)),
-    // React.createElement('div', null,React.createElement(BillAmount, {amount: 50}, null)),
-    // React.createElement('div', null, React.createElement(Email, {onInput: this.emailStateHandler}, null)),
-    // React.createElement(Button, {showCostSavings: this.handleBtnClick}, null))

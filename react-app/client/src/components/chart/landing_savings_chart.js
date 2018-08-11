@@ -1,7 +1,7 @@
 import highcharts from 'highcharts';
 const NUMBER_OF_DAYS_IN_YEAR = 365;
 
-export class MakelloHighChart {
+export default class MakelloHighChart {
     constructor(chartContainer, data, minimum_year, maximum_year) {
         this.data = data;
         this.minimum_year = minimum_year;
