@@ -1,0 +1,62 @@
+#landing_p_slider
+{
+    -webkit-appearance: none;
+    width: 50%;
+    height: 10px;
+    border-radius: 5px;
+}
+
+#landing_p_slider::-webkit-slider-thumb
+{
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #1b30a5;
+}
+
+#button_attrb
+{
+    background: #1b30a5;
+    color: #ffffff;
+    
+}
+
+output 
+{ 
+    position: relative;
+    background-image: linear-gradient(#ffffff, #fffffe);
+    width: 100px; 
+    height: 30px; 
+    text-align: center; 
+    color: white; 
+    /* border-radius: 10px;  */
+    display: inline-block; 
+    font: bold 15px/30px Georgia;
+    bottom: 175%;
+    left: 0;
+    /* margin-left: -50%; */
+}
+
+output:after 
+{ 
+  content: "";
+  position: absolute; 
+  width: 0;
+  height: 0;
+  border-top: 10px solid #ffffff;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  top: 100%;
+  left: 50%;
+  margin-left: -10px;
+  margin-top: -1px;
+}
+
+form 
+{ 
+    position: relative;  
+    width: 100%;
+}

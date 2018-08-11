@@ -22,6 +22,7 @@
 
 #monthlyText p
 {
+    font-family: 'Montserrat';
     position: relative;
     top: 50%;
     left: 50%;
@@ -39,6 +40,8 @@
 
 #sliderContent
 {
+    font-family: 'Montserrat';
+    color: #1b30a5;
     position: relative;
     top: 50%;
     left: 50%;
@@ -64,6 +67,7 @@
 
 #buttonContent
 {  
+    font-family: 'Montserrat';
     height: 50%;
     position: relative;
     top: 30%;
@@ -88,8 +92,8 @@
     background-repeat: no-repeat;
     /* background-attachment: fixed; */
     background-position: center 0;
-    /* filter: grayscale(50%); */
-    filter: brightness(75%);
+    filter: grayscale(75%);
+    filter: brightness(50%);
     opacity: 0.75;
 }
 
@@ -115,6 +119,7 @@
 {
     color: #ffffff;
     text-align: center;
-    font-size: 2.5em;
+    font-family: 'Montserrat';
+    font-size: 2em;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
 }
