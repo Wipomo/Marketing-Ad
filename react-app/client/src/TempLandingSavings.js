@@ -91,10 +91,9 @@ class SavingsChartandCustomerData extends Component {
         <div>
           <SavingsChart monthlyBillingAmount={this.props.amount}/>
           {/* <Chart data = {[]} minimumYear = {2010} maximumYear = {2015} /> */}
-          <BillAmount amount ={this.props.amount}/>
         </div>
         <div>
-          {/* div should have solar array bg image */}
+          {/* THIS div should have solar array bg image */}
           <h1>Are you ready to save money ?</h1>
           <div>
             <form>
