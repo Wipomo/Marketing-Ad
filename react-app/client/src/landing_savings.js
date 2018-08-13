@@ -54,7 +54,7 @@ class SavingsChart extends Component{
 
                     <Slider handleChange={this.handleSystemSizeChange}/>
                     <SliderText system_size={this.state.system_size}/>
-                    <hr/>
+                       
 
             </div>
         )
