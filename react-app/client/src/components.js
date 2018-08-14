@@ -1,22 +1,64 @@
 import React, {Component} from 'react'
+import 'rc-slider/assets/index.css';
+import 'rc-tooltip/assets/bootstrap.css';
+import Tooltip from 'rc-tooltip';
+import Slider from 'rc-slider';
 import "./components.css"
+
+const Handle = Slider.Handle;
+
+const handle = (props) => {
+  const { value, dragging, index, ...restProps } = props;
+
+  return (
+    <Tooltip
+      id="sliderHandle"
+      prefixCls="rc-slider-tooltip"
+      overlay={value}
+      visible={true}
+      defaultVisible = {true}
+      placement="bottom"
+      key={index}
+    >
+      <Handle value={value} {...restProps} />
+    </Tooltip>
+  );
+};
 
 // These are examples of functional stateless components
 // in comparison to React class components
-export class Slider extends Component{
+export class WipomoSlider extends Component{
     // constructor(props){
     //     super(props);
     // }
+
     render(){
+        let {min,max,step, onInput} = this.props;
+        min = parseInt(min, 10);
+        max = parseInt(max, 10);
+        step = parseInt(step, 10);
+        const marksStyle = {
+            fontFamily: 'Montserrat',
+            color: '#1b30a5',
+            fontSize: 16
+          }; 
+        const marks = {
+            [min]: {
+              style: marksStyle,
+              label: <div>${min}</div>,
+            },
+            [max]: {
+                style: marksStyle,
+                label: <div>${max}</div>,
+              }
+          };
+        const sliderContainerStyle = {margin: 'auto', top: 0, left: 0, bottom: 0, right: 0, width: 500 }
+        const sliderStyle = { backgroundColor: 'white', height: 8};
+
+
         return(
-            <div>
-            <form>
-            $50
-            <input type="range" id="landing_p_slider"
-            min={this.props.min} max={this.props.max} step={this.props.step} onInput={this.props.onInput} ></input>
-            <output for="landing_p_slider" onforminput="value = landing_p_slider.valueAsNumber;"></output>
-            $5000
-            </form>
+            <div style={sliderContainerStyle}>
+            <Slider marks={marks} trackStyle={sliderStyle} railStyle={sliderStyle} id="landing_p_slider" min={min} max={max} defaultValue={min} step={step} handle={handle} onSliderChange={onInput} />
             </div>
         )
     }
