@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Email, Slider, BillAmount, Button} from '../../components';
+import {Email, WipomoSlider, BillAmount, Button} from '../../components';
 import { Link, Redirect} from "react-router-dom";
 
 class LandingPageBox extends React.Component{
@@ -18,6 +18,7 @@ class LandingPageBox extends React.Component{
             state: {amount: 60}
         }
     if (this.state.toSavings){
+        this.setState({toSavings: false})
         return <Redirect to='/savings' />
     }
 
@@ -29,7 +30,7 @@ class LandingPageBox extends React.Component{
         
         <div id ="sliderContainer">
             <div id="sliderContent">
-                <Slider min="50" max="5000" step="50" onInput={handleSliderChange}/>
+                <WipomoSlider min="50" max="5000" step="50" onInput={handleSliderChange}/>
                 {/* Billing Amount should eventually be replaced with slider component css */}
                 <BillAmount amount={monthlyBill} />
             </div>

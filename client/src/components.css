@@ -48,7 +48,7 @@ output:after
   height: 0;
   border-top: 10px solid #ffffff;
   border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
+  border-right: 10px solid transparent; 
   top: 100%;
   left: 50%;
   margin-left: -10px;

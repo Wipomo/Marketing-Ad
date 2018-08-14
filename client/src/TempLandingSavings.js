@@ -4,7 +4,7 @@ import { Button, BillAmount} from './components';
 import { Link, Route } from "react-router-dom";
 import SavingsChart from "./landing_savings";
 import { userInfo } from "os";
-
+import "./LandingSavings.css";
 
 //  var autocomplete = new window.google.maps.places.Autocomplete(
 //   document.getElementById('autocomplete'),{types: ['address']});
@@ -87,17 +87,24 @@ class SavingsChartandCustomerData extends Component {
   render() {
 // console.log(this.props.location);
     return (
-      <div>
+      <div id="s-landingContainer">
         <div>
           <SavingsChart monthlyBillingAmount={this.props.amount}/>
           {/* <Chart data = {[]} minimumYear = {2010} maximumYear = {2015} /> */}
         </div>
-        <div>
+        <div class="div-w-bg">
+          <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'/>
+
           {/* THIS div should have solar array bg image */}
-          <h1>Are you ready to save money ?</h1>
-          <div>
+          <div class="s-image"></div>
+          <div class="s-text">
+            <h1 class="s-title">Are You Ready to Save Money?</h1>
+          </div>
+        </div>
+        <div id="s-landingBox">
+          <div id="formContainer">
             <form>
-              <title> Get a custom energy report from Makello.</title>
+              <h2> Get a custom energy report from Makello.</h2>
               <input name ="fullName" placeholder="Full Name*" onChange={this.props.fullNameStateHandler}></input><br/>
               <input name="phone" placeholder="Phone" onChange={this.props.phoneStateHandler}></input><br/>
               <input id="autocomplete" name="fullAddress" className="controls" type="text" placeholder="Enter full address*"
