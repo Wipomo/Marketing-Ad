@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-// import {Chart} from './components/chart/chart.jsx'
-import { Button, BillAmount} from './components';
-import { Link, Route } from "react-router-dom";
+import { Button} from './components';
+import { Link } from "react-router-dom";
 import SavingsChart from "./landing_savings";
-import { userInfo } from "os";
 import "./LandingSavings.css";
 
-//  var autocomplete = new window.google.maps.places.Autocomplete(
-//   document.getElementById('autocomplete'),{types: ['address']});
 
 var autocomplete=null;
 var initAuto = false;
@@ -92,13 +88,13 @@ class SavingsChartandCustomerData extends Component {
           <SavingsChart monthlyBillingAmount={this.props.amount}/>
           {/* <Chart data = {[]} minimumYear = {2010} maximumYear = {2015} /> */}
         </div>
-        <div class="div-w-bg">
+        <div className="div-w-bg">
           <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'/>
 
           {/* THIS div should have solar array bg image */}
-          <div class="s-image"></div>
-          <div class="s-text">
-            <h1 class="s-title">Are You Ready to Save Money?</h1>
+          <div className="s-image"></div>
+          <div className="s-text">
+            <h1 className="s-title">Are You Ready to Save Money?</h1>
           </div>
         </div>
         <div id="s-landingBox">

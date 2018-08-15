@@ -12,23 +12,24 @@ var systemSizeToSystemDescriptionMap = new Map([
     ["5", "Premium"]
 ]);
 
+var system_size = 1;
+var bucket_savings= "$0";
+
 class SavingsChart extends Component{
-    constructor(props){
-        super(props);
-        this.state={monthlyBillingAmount: this.props.monthlyBillingAmount, // This amount is dynamically generated.
-            system_size: 1,
-            showForm: false,
-            bucket_savings: "$0",
-            sys_description: "Choose a System Size"
-        }
-    }
+
+    //  componentWillMount=()=>{
+    //  }
+    //  constructor(props){
+    //     super(props);
+    //  }
 
     handleSystemSizeChange=(event)=>{
-        console.log("System size changed to :" + this.system_size);
-        this.setState({
-            system_size: event.target.value
-        })
-        get_system_size_data(this.state.monthlyBillingAmount, this.state.system_size);
+        // this.setState({
+        //     system_size: event.target.value
+        // })
+        this.system_size = event.target.value;
+        console.log("System size changed to: " + this.system_size);
+        get_system_size_data(this.props.monthlyBillingAmount, this.system_size);
     }
 
 
@@ -37,20 +38,23 @@ class SavingsChart extends Component{
             <div>
                 {/* THIS div should have a grey background */}
                 <div>
+                    
+                <MonthlyBill amount={this.props.monthlyBillingAmount}/>
+
                 You can save <br/>
                 <BucketSavings monthlyBillings={this.props.monthlyBillingAmount}
-                bucket_savings={this.state.bucket_savings}/><br/>
+                bucket_savings={bucket_savings}/><br/>
                 annual with 100% clean energy
 
                 </div>
                 <div id="chartContainer">
                      {/* This div should have a white background */}
-                    <Chart monthlyBillings={this.state.monthlyBillingAmount}
-                        system_size={this.state.system_size}/>
+                    <Chart monthlyBillings={this.props.monthlyBillingAmount}
+                        system_size={this.system_size}/>
                 </div>
 
                     <Slider handleChange={this.handleSystemSizeChange}/>
-                    <SliderText system_size={this.state.system_size}/>
+                    <SliderText system_size={this.system_size}/>
                     <hr/>
 
             </div>
@@ -84,17 +88,11 @@ class SliderText extends React.Component{
     }
 };
 
-SliderText.defaultProps=()=>{
-    // this did not load, and so Ive put a hack in the sliderText class
-    // to set default slider text
-    var text= "Choose a system size!";
-}
-
-
 
 class MonthlyBill extends React.Component{
     render=()=> {
-        return <div id= 'monthly-bill-input'> {this.props.monthlyBillings} </div>;
+        console.log("Gets in monthly bill: "+ this.props.amount);
+        return <div id= 'monthly-bill-input'> {this.props.amount} </div>;
     }
 };
 
@@ -102,17 +100,20 @@ class BucketSavings extends React.Component{
     render=()=>{
         update_max_bucket_savings(this.props.monthlyBillings);
         // console.log("returned bucket savings is: " + bucket_savings2);
-        return <div id="bucket_savings"> {this.props.bucket_savings} </div>
+        return <div id="bucket_savings"> {this.bucket_savings} </div>
     }
 };
 
 var update_max_bucket_savings = function (monthlyBillings) {
     var bill_input = monthlyBillings;
     var annual_bill = bill_input * 12;
-    if (annual_bill < 1000)
-        var bucket = 500;
-    else
-        var bucket = Math.floor(annual_bill / 1000) * 1000;
+    var bucket;
+    if (annual_bill < 1000){
+        bucket = 500;
+    }
+    else{
+        bucket = Math.floor(annual_bill / 1000) * 1000;
+    }
 
     var url = "https://wipomo-zoho-database.herokuapp.com/db/" + bucket;
 
@@ -146,31 +147,34 @@ var update_max_bucket_savings = function (monthlyBillings) {
 }
 
 var get_system_size_data = function (monthlyBillings, system_size) {
-    var numberOfMonthsInAYear = 12;
-    var down_payment = 18000;
-    var system_size_percentages = [];
-    var fixed_cost_savings_amt = 0;
+    //var numberOfMonthsInAYear = 12;
+    //var down_payment = 18000;
+    // var system_size_percentages = [];
+    // var fixed_cost_savings_amt = 0;
     var cost_savings_data;
 
     //let buckets = Object.keys(annualElectricBillToMaxSavingsPercent);
 
     var bill_input = monthlyBillings;
     var annual_bill = bill_input * 12;
+    var bucket;
     if (annual_bill < 1000)
-        var bucket = 500;
+        bucket = 500;
     else
-        var bucket = Math.floor(annual_bill / 1000) * 1000;
-    var sys_size_input = system_size;
-    // console.log("Here is the bucket: ");
-    // console.log(bucket);
-    // console.log("Here is the system size: ");
-    var url = " " + bucket + "/" + system_size;
+        bucket = Math.floor(annual_bill / 1000) * 1000;
+    //var sys_size_input = system_size;
+    console.log("Here is the bucket: ");
+    console.log(bucket);
+    console.log("Here is the system size: ");
+    console.log(system_size);
+    var url = "https://wipomo-zoho-database.herokuapp.com/db/" + bucket + "/" + system_size;
     var myFetch = fetch(url);
 
     myFetch.then(function (response) {
         response.text().then(
             function (text) {
                 let dataToReturn = [];
+                console.log(text);
                 cost_savings_data = JSON.parse(text);
                 console.log("This is the text in the fetch function")
                 console.log(text);

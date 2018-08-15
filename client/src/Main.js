@@ -1,7 +1,6 @@
 // This page may need the Makello header and footer as well.
 import React, {Component } from 'react';
-import { BrowserRouter, Link, Redirect, Route, Switch } from "react-router-dom";
-import createHistory from "history/createBrowserHistory";
+import { Link, Route, Switch } from "react-router-dom";
 import MonthlyAnnualElectricBill from "./LandingPage";
 import SavingsChartandCustomerData from "./TempLandingSavings";
 import EVPage from "./LandingEV";
@@ -115,26 +114,6 @@ class App extends Component{
         }
     }
 
-    // cityStateHandler=(e)=>{
-    //     console.log("city" +e.target.value);
-    //     this.setState({city: e.target.value});
-    //     if(this.state.zipcode === ""){
-    //         this.setState({disableSavingsPageBtn: true})
-    //     }
-    // }
-
-    // zipcodeStateHandler=(e)=>{
-    //     console.log("zip"+e.target.value);
-    //     this.setState({zipcode: e.target.value});
-    //     if(this.state.zipcode !== ""){
-    //         this.setState({disableSavingsPageBtn: false})
-    //     }
-    //     else{
-    //         this.setState({disableSavingsPageBtn: true})
-
-    //     }
-    // }
-
     dailyMileageHandler=(e)=>{
         console.log(e.target.value);
         this.setState({dailyMileage: e.target.value});
@@ -196,7 +175,7 @@ class App extends Component{
                 this.setState({givesEmailandMonthlyBill: true});           
                 // check if input fits required standard
                 console.log("Main set just gotta redirect to component page");
-                <Redirect to='/savings'/>
+                // <Redirect to='/savings'/>
                 //console.log(history);
                 //console.log();
                 console.log("Should have redirected to new page by this time");
@@ -227,17 +206,17 @@ class App extends Component{
     }
 
     render(){
-        const history = createHistory();
+        // const history = createHistory();
 
 
-        // Get the current location.
-        const location = history.location;
+        // // Get the current location.
+        // const location = history.location;
         
-        // Listen for changes to the current location.
-        const unlisten = history.listen((location, action) => {
-            // location is an object like window.location
-            console.log(action, location.pathname, location.state);
-        })
+        // // Listen for changes to the current location.
+        // const unlisten = history.listen((location, action) => {
+        //     // location is an object like window.location
+        //     console.log(action, location.pathname, location.state);
+        // })
           
         // // To stop listening, call the function returned from listen().
         // unlisten()
@@ -248,49 +227,10 @@ class App extends Component{
         // history.replace(landing);
         //console.log(history);
 
-        const givesEmailandMonthlyBill = this.state.givesEmailandMonthlyBill;
-        const givesNameandAddress = this.state.givesNameandAddress;
-        const givesVehicleInfo = this.state.givesVehicleInfo;
-        let view;
-
-        // // in the case where no input has been given
-        // if(!givesEmailandMonthlyBill && !givesNameandAddress && !givesVehicleInfo){
-        //     console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
-            
-        //     // <Redirect push to="/landing"/>                
-        //     view = <MonthlyAnnualElectricBill amount={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler}
-        //     handleSliderChange={this.handleSliderChange} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.fullNameStateHandler}
-        //     monthlyBill={this.state.monthlyBill} handleBtnClick={this.handleBtnClick} disableLandingPageBtn = {this.state.disableLandingPageBtn}/>
-        // }
-        // else if(givesEmailandMonthlyBill && !givesNameandAddress && !givesVehicleInfo){
-        //     // case where only email and monthly bill has been given
-        //     console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
-
-        //     console.log("gave email but not name and address yet");
-
-        //     //<Redirect push to="/savings"/>
-        //     view = <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName} phone={this.state.phone}
-        //     fullAddress={this.state.fullAddress} city={this.state.city} zipcode={this.state.zipcode} fullNameStateHandler={this.fullNameStateHandler} phoneStateHandler={this.phoneStateHandler}
-        //     fullAddressStateHandler={this.fullAddressStateHandler} cityStateHandler={this.cityStateHandler} zipcodeStateHandler={this.zipcodeStateHandler}
-        //     handleBtnClick={this.handleBtnClick} disableSavingsPageBtn={this.state.disableSavingsPageBtn} />
-        // }
-        // else if (givesEmailandMonthlyBill && givesNameandAddress && !givesVehicleInfo){
-        //     console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
-        //     // case where all info has been given besides ev info
-        //     //<Redirect push to="/ev"/>
-        //     view=<EVPage dailyyMileage={this.state.dailyMileage} milesPerGallon={this.state.milesPerGallon}
-        //         vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.state.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
-        //         weeklyMileageHandler={this.weeklyMileageHandler} yearlyMileageHandler={this.yearlyMileageHandler} givesVehicleInfo={this.state.givesVehicleInfo} handleBtnClick={this.handleBtnClick}/>
-        // }
-        // else if (givesEmailandMonthlyBill && givesNameandAddress && givesVehicleInfo){
-        //     console.log("rerenders view on change: "+givesEmailandMonthlyBill+ " " + givesNameandAddress + " " + givesVehicleInfo);
-        //     //<Redirect push to="/thanks"/>
-        //     view=<ThankYouRedirectPage />
-        // }
-        // else{
-        //     console.log("Should never come hear.. nothing to render")
-        //     view=<ThankYouRedirectPage />
-        // }
+        // const givesEmailandMonthlyBill = this.state.givesEmailandMonthlyBill;
+        // const givesNameandAddress = this.state.givesNameandAddress;
+        // const givesVehicleInfo = this.state.givesVehicleInfo;
+        // let view;
 
 
         return(
@@ -318,12 +258,12 @@ class App extends Component{
                     <Switch>
                     <Route exact path="/" render={(props)=>(
                         <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.props.email} emailStateHandler={this.emailStateHandler} 
-                         handleSliderChange={this.handleSliderChange} handleBtnClick={this.handleBtnClick}disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
+                         handleSliderChange={this.handleSliderChange} handleBtnClick={this.handleBtnClick} disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
                     )}/>
 
                     <Route path="/landing" render={(props)=>(
                         <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.props.email} emailStateHandler={this.emailStateHandler} 
-                         handleSliderChange={this.handleSliderChange} handleBtnClick={this.handleBtnClick}disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
+                         handleSliderChange={this.handleSliderChange} handleBtnClick={this.handleBtnClick} disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
                     )}/>
 
                     <Route path="/savings" render={(props)=>(

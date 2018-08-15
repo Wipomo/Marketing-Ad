@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import EVForm from "./EVForm";
-import ThankYouRedirectPage from "./Redirect.js";
-import { Link , Route} from "react-router-dom";
+import { Link} from "react-router-dom";
 
 
 

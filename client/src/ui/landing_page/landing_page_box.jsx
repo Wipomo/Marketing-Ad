@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {Email, WipomoSlider, BillAmount, Button} from '../../components';
 import { Link, Redirect} from "react-router-dom";
 

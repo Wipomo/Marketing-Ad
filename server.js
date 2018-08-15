@@ -24,6 +24,7 @@ googleMapsClient.placesAutoComplete({
   components: {country: 'us'},
   type: 'address'
 })
+
 .asPromise()
 .then(function(response) {
 
