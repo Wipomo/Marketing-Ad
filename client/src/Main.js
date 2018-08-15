@@ -22,7 +22,7 @@ class App extends Component{
 
          fullName:"", phone: "", fullAddress:"", city: "", zipcode:"",
          dailyMileage:0, milesPerGallon:0, vehicleMake: "", vehicleModel:"",
-         disableVehicleModel: true, disableVehicleYear: true, disableCustomerDataButton:true,
+         disableVehicleModel: true, disableCustomerDataButton:true,
          disableLandingPageBtn: true, disableEVPageBtn: true, disableSavingsPageBtn: true}
 
         this.handleBtnClick = this.handleBtnClick.bind(this);
@@ -157,9 +157,6 @@ class App extends Component{
     vehicleModelHandler=(e)=>{
         console.log("Vehicle Model: "+ e.target.value);
         this.setState({vehicleModel: e.target.value})
-
-        //also set vehicle year dropdown disabled to false
-        this.setState({disableVehicleYear: false})
 
     }
 

@@ -3,11 +3,11 @@ import { Button} from './components';
 import { Link } from "react-router-dom";
 import SavingsChart from "./landing_savings";
 import "./LandingSavings.css";
+import AddressInput from "./components/address_autocomplete"
 
 
 var autocomplete=null;
 var initAuto = false;
-
 class SavingsChartandCustomerData extends Component {
 
   // constructor(props){
@@ -15,11 +15,9 @@ class SavingsChartandCustomerData extends Component {
     
   // }
 
-  // componentDidMount=()=>{
-   
-  //   var amount = this.props.location.state.amount;
-  //   console.log("Component mounted !!! amount: " + amount);
-  // }
+  //  componentDidMount=()=>{
+     
+  //  }
 
   initAutocomplete=()=>{
 
@@ -48,6 +46,8 @@ class SavingsChartandCustomerData extends Component {
         input,{types: ['address']});
         window.google.maps.event.addListener('place_changed', this.fillInAddress);
       initAuto = true;
+    }else{
+      console.log("Comes in here instead");
     }
     // // Get the place details from the autocomplete object.
      var place = autocomplete.getPlace();
@@ -85,7 +85,7 @@ class SavingsChartandCustomerData extends Component {
     return (
       <div id="s-landingContainer">
         <div>
-          <SavingsChart monthlyBillingAmount={this.props.amount}/>
+          <SavingsChart monthlyBillingAmount={this.props.amount} />
           {/* <Chart data = {[]} minimumYear = {2010} maximumYear = {2015} /> */}
         </div>
         <div className="div-w-bg">
@@ -103,8 +103,9 @@ class SavingsChartandCustomerData extends Component {
               <h2> Get a custom energy report from Makello.</h2>
               <input name ="fullName" placeholder="Full Name*" onChange={this.props.fullNameStateHandler}></input><br/>
               <input name="phone" placeholder="Phone" onChange={this.props.phoneStateHandler}></input><br/>
-              <input id="autocomplete" name="fullAddress" className="controls" type="text" placeholder="Enter full address*"
-                onFocus={this.fillInAddress} onChange={this.props.fullAddressStateHandler}></input><br/>
+              <AddressInput onChange={this.props.fullAddressStateHandler}/><br/>
+              {/* <input id="autocomplete" name="fullAddress" className="controls" type="text" placeholder="Enter full address*"
+                onFocus={this.fillInAddress} ></input><br/> */}
               <Button onClick={this.props.handleBtnClick} disabled={this.props.disableSavingsPageBtn}/>
               <li><Link to="/ev">Electric Vehicles Page</Link></li>
               {/* <Route path="/ev" component={EVPage}/> */}
