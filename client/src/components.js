@@ -14,7 +14,7 @@ const handle = (props) => {
     <Tooltip
       id="sliderHandle"
       prefixCls="rc-slider-tooltip"
-      overlay={value}
+      overlay={"$"+value}
       visible={true}
       defaultVisible = {true}
       placement="bottom"
@@ -58,7 +58,7 @@ export class WipomoSlider extends Component{
 
         return(
             <div style={sliderContainerStyle}>
-            <Slider marks={marks} trackStyle={sliderStyle} railStyle={sliderStyle} id="landing_p_slider" min={min} max={max} defaultValue={min} step={step} handle={handle} onSliderChange={onInput} />
+            <Slider marks={marks} trackStyle={sliderStyle} railStyle={sliderStyle} id="landing_p_slider" min={min} max={max} defaultValue={max/2} step={step} handle={handle} onSliderChange={onInput} />
             </div>
         )
     }
