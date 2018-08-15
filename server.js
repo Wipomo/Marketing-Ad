@@ -53,8 +53,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(express.static(path.join(__dirname, 'src')));
 
 app.get('/', function (req, res) {
-  res.send({express: "Hello from express.."})
-  // res.sendFile(path.join(__dirname));
+   res.sendFile(path.join(__dirname, 'client', 'index.html' ));
 });
 
 if (process.env.NODE_ENV === 'production') {
