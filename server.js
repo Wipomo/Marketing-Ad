@@ -52,6 +52,19 @@ app.use(express.static(path.join(__dirname, 'public')));
 //app.use(express.static('src'));
 // app.use(express.static(path.join(__dirname, 'src')));
 
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname));
+});
+
+if (process.env.NODE_ENV === 'production') {
+  // Serve any static files
+  app.use(express.static(path.join(__dirname, 'client/build')));
+  // Handle React routing, return all requests to React app
+  app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+  });
+}
+
 app.get('/db/:bill_amt/:sys_size', (req, res, next) => {
   //console.log("Attempt to Starts db func");
   // Get a Postgres client from the connection pool
@@ -107,9 +120,7 @@ VALUES ($1, $2, $3, $4, $5)`, values, function (err, rows, fields) {
   })
 })
 
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname));
-});
+
 
 app.get('/src', function (req, res) {
     res.sendFile(path.join(__dirname));

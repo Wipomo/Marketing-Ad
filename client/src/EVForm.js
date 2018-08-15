@@ -57,13 +57,6 @@ class EVForm extends React.Component {
                 <option > Model 3</option>
                 <option > Model 4</option>
               </select><br/>
-              <select name="vehicleYear" disabled="true">
-                <option > Year </option>
-                <option > 2018 </option>
-                <option > 2017 </option>
-                <option > 2016 </option>
-                <option > 2015 </option>
-              </select><br/>
             </div>
 
               <label>How many miles per gallon do you drive per year?</label><br/>
