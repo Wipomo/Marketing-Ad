@@ -2,9 +2,14 @@
   "name": "create-react-app-express",
   "version": "1.0.0",
   "scripts": {
-    "client": "cd client && yarn start",
+    "client": "yarn start",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@google/maps": "^0.5.5",
@@ -14,13 +19,15 @@
     "history": "^4.7.2",
     "pg": "^7.4.3",
     "rc-slider": "^8.6.1",
+    "ajv": "^6.5.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
-    "react-router-dom": "^4.3.1"
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "1.1.4",
+    "reactstrap": "^6.3.1"
   },
   "devDependencies": {
     "concurrently": "^3.5.0"
   },
-  "start": "node server.js",
-  "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  "proxy": "http://localhost:5000/"
 }
