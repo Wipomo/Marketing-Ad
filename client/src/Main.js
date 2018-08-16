@@ -69,9 +69,8 @@ class App extends Component{
       
     
 
-    handleSliderChange=(e)=>{
-        console.log("Comes in slider event");
-        this.setState({monthlyBill: e.target.value});
+    handleSliderChange=(value)=>{
+        this.setState({monthlyBill: value});
     }
     emailStateHandler=(e)=>{
         console.log(e.target.value);
