@@ -1,4 +1,4 @@
-import highcharts from 'highcharts';
+ import Highcharts from 'highcharts';
 const NUMBER_OF_DAYS_IN_YEAR = 365;
 
 export default class MakelloHighChart {
@@ -56,7 +56,7 @@ export default class MakelloHighChart {
         console.log("Here is what the data coming into the chart looks like: ");
         console.log(data);
 
-        this.chart = highcharts.chart(containerString, {
+        this.chart = Highcharts.chart(containerString, {
             title: {
                 text: 'Cumulative Cash Flow'
             },

@@ -12,49 +12,54 @@ var systemSizeToSystemDescriptionMap = new Map([
     ["5", "Premium"]
 ]);
 
-var system_size = 1;
-var bucket_savings= "$0";
+// var system_size = 1;
+// var bucket_savings= "$0";
 
 class SavingsChart extends Component{
 
     //  componentWillMount=()=>{
     //  }
-    //  constructor(props){
-    //     super(props);
-    //  }
+     constructor(props){
+        super(props);
+        this.state={
+            system_size: 1,
+            bucket_savings: update_max_bucket_savings(props.monthlyBillingAmount)
+        }
+     }
 
     handleSystemSizeChange=(event)=>{
         // this.setState({
         //     system_size: event.target.value
         // })
-        this.system_size = event.target.value;
-        console.log("System size changed to: " + this.system_size);
-        get_system_size_data(this.props.monthlyBillingAmount, this.system_size);
+        this.setState({system_size : event.target.value});
+        console.log("System size changed to: " + this.state.system_size);
+        get_system_size_data(this.props.monthlyBillingAmount, this.state.system_size);
     }
 
 
     render() {
+        const {monthlyBillingAmount} = this.props;
+        const {system_size, bucket_savings} = this.state;
         return (
             <div>
                 {/* THIS div should have a grey background */}
                 <div>
                     
-                <MonthlyBill amount={this.props.monthlyBillingAmount}/>
+                <MonthlyBill amount={monthlyBillingAmount}/>
 
                 You can save <br/>
-                <BucketSavings monthlyBillings={this.props.monthlyBillingAmount}
-                bucket_savings={bucket_savings}/><br/>
+                <BucketSavings monthlyBillings={monthlyBillingAmount} bucket_savings={bucket_savings} />
+                <br/>
                 annual with 100% clean energy
 
                 </div>
                 <div id="chartContainer">
                      {/* This div should have a white background */}
-                    <Chart monthlyBillings={this.props.monthlyBillingAmount}
-                        system_size={this.system_size}/>
+                    <Chart monthlyBillings={monthlyBillingAmount} system_size={system_size}/>
                 </div>
 
                     <Slider handleChange={this.handleSystemSizeChange}/>
-                    <SliderText system_size={this.system_size}/>
+                    <SliderText system_size={system_size}/>
                     <hr/>
 
             </div>
@@ -64,15 +69,9 @@ class SavingsChart extends Component{
 
 class Slider extends React.Component{
     render() {
-        return (React.createElement('input', {
-            // set max to number of system sizes
-            min: "1",
-            max: "5",
-            defaultValue: "1",
-            onChange: this.props.handleChange,
-            step: "2",
-            type: "range"
-        }))
+        return (
+            <input min= "1" max="5" defaultValue="1" onChange={this.props.handleChange} step="2" type="range"/>
+        )
     }
 };
 
@@ -98,47 +97,36 @@ class MonthlyBill extends React.Component{
 
 class BucketSavings extends React.Component{
     render=()=>{
-        update_max_bucket_savings(this.props.monthlyBillings);
-        // console.log("returned bucket savings is: " + bucket_savings2);
-        return <div id="bucket_savings"> {this.bucket_savings} </div>
+        return <div id="bucket_savings"> {this.props.bucket_savings} </div>
     }
 };
 
 var update_max_bucket_savings = function (monthlyBillings) {
-    var bill_input = monthlyBillings;
-    var annual_bill = bill_input * 12;
+    console.log("MONTHLY BILL FOR BUCKET SAVINGS: "+monthlyBillings);
+    var annualBill = monthlyBillings * 12;
     var bucket;
-    if (annual_bill < 1000){
+    if (annualBill < 1000){
         bucket = 500;
     }
     else{
-        bucket = Math.floor(annual_bill / 1000) * 1000;
+        bucket = Math.floor(annualBill / 1000) * 1000;
     }
 
     var url = "https://wipomo-zoho-database.herokuapp.com/db/" + bucket;
 
-    //return 
+
     fetch(url)
         .then((response) => {
-            //console.log(response.text);
             return response.text()
         })
-        .then((response_in_text) => {
-            //console.log(JSON.parse(text));
-            return JSON.parse(response_in_text)
+        .then((responseInText) => {
+            return JSON.parse(responseInText)
         })
         .then((data) => {
-            //console.log(data[0]["max_discount_percentage"]);
-            const text = document.getElementById("bucket_savings");
             var percentage = data[0]["max_discount_percentage"];
-            var bucket_savings = bucket * percentage;
-            // console.log("Bill: " + monthlyBillings);
-            // console.log("Bucket: " + bucket);
-            // console.log("Percentage: " + percentage);
-            // console.log("Savings: " + bucket_savings);
-            var bucket_savings_string = "$" + bucket_savings
-            text.innerText = bucket_savings_string;
-            return bucket_savings_string;
+            var bucketSavings = bucket * percentage;
+            var bucketSavingsString = "$" + bucketSavings
+            return bucketSavingsString;
         })
         .catch(function (e) {
             console.warn("SHOULLD NEVER COME IN HERE!!!");
@@ -195,7 +183,7 @@ var get_system_size_data = function (monthlyBillings, system_size) {
         );
     });
 }
-// 	// return cost_savings_data;
+
 class Chart extends React.Component{
 
     componentDidMount() {
