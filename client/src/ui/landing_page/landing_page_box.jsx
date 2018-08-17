@@ -18,7 +18,7 @@ class LandingPageBox extends React.Component{
             state: {amount: 60}
         }
     if (this.state.toSavings){
-        this.setState({toSavings: false})
+        // this.setState({toSavings: false})
         return <Redirect to='/savings' />
     }
 
@@ -44,19 +44,6 @@ class LandingPageBox extends React.Component{
                     <Button onClick={this.handleBtnClick} disabled={disableLandingPageBtn}/>
                 </div>
         </div>
-        <Link to={savings}>Savings/Form Page</Link>
-        
-        {/* <Redirect to={location}/> */}
-        {/* history.push(location)
-        history.replace(location) */}
-            
-        {/* browserHistory.push({pathname:'/savings', state: {message: "hello, im a passed message!"}}); */}
-        
-        
-        
-        
-        {/* <Route path="/savings" component={SavingsChartandCustomerData}/> */}
-        
         
         </div>
 )

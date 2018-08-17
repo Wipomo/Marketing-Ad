@@ -4,11 +4,9 @@ import { BrowserRouter } from 'react-router-dom'
 //import App from './App';
 //import MonthlyAnnualElectricBill from './landing_page'
 import App from "./Main";
-import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 
 ReactDOM.render(
 <BrowserRouter>
     <App/>
 </BrowserRouter>, document.getElementById('root'));
-registerServiceWorker();

@@ -17,7 +17,7 @@ class App extends Component{
          givesEmailandMonthlyBill:false,
          givesNameandAddress:false,
          givesVehicleInfo: false,
-         hasError: false,
+         hasError: false, response: '',
 
 
          fullName:"", phone: "", fullAddress:"", city: "", zipcode:"",
@@ -281,6 +281,7 @@ class App extends Component{
                     {/* we add the exact so its route does not match other routes */}
 
                     {/* {view} */}
+                    {this.state.response}
 
                 </div>
             </div>

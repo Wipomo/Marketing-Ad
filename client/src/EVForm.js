@@ -1,13 +1,27 @@
 import React from 'react';
 import {Button} from './components';
 import './EVForm.css';
+import {Redirect} from "react-router-dom";
 // import './vehicleFormData/vehicleData.js';
 
 
 class EVForm extends React.Component {
+  state = {
+    toThankYouPage: false
+    }
+
+handleBtnClick = () =>{
+    this.setState({toThankYouPage: true});
+};
+
 
   render() {
+    if(this.state.toThankYouPage){
+      return <Redirect to='/thanks' />
+    }
+
     return(
+          
         <form>
             <label>What is your daily commute in miles?</label><br/>
             <input name="milesDaily" onChange={this.props.dailyMileageHandler}></input><br/>
@@ -61,7 +75,7 @@ class EVForm extends React.Component {
 
               <label>How many miles per gallon do you drive per year?</label><br/>
             <input name="milesPerGallon" onChange={this.props.milesPerGallonHandler}></input><br/>
-            <Button onClick={this.props.handleBtnClick} disabled={this.props.disableEVPageBtn} />
+            <Button onClick={this.handleBtnClick} disabled={this.props.disableEVPageBtn} />
         </form>
     )
   }

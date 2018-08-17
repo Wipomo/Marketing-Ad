@@ -17,9 +17,6 @@ class EVPage extends Component {
         dailyMileage={this.props.dailyMileage} milesPerGallon={this.props.milesPerGallon}
         dailyMileageHandler={this.props.dailyMileageHandler} milesPerGallonHandler={this.props.milesPerGallonHandler}
         disableEVPageBtn={this.props.disableEVPageBtn} handleBtnClick={this.props.handleBtnClick}/> 
-        
-        <li><Link to="/thanks">Thank you Page</Link></li>
-        {/* <Route path="/thanks" component={ThankYouRedirectPage}/> */}
 
       </div>
     );
