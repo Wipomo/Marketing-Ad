@@ -17,60 +17,29 @@ const config = {
 var arrayContaining = null;
 var objectContaining = null;
 
-// it('gets autocomplete predictions for places', function(done) {
-// googleMapsClient.placesAutoComplete({
-//   input: '1315 Sea Vill',
-//   language: 'en',
-//   components: {country: 'us'},
-//   type: 'address'
-// })
 
-// .asPromise()
-// .then(function(response) {
+app.use(express.static(path.join(__dirname,'client/build' )));
+// app.use(express.static(path.join(__dirname, 'client/build')));
 
-//   console.log(response.json.results);
-
-//   expect(response.json.predictions).toEqual(
-//       arrayContaining([
-//         objectContaining({
-//           terms: arrayContaining([
-//             objectContaining({
-//               value: 'NY'
-//             })
-//           ])
-//         })
-//       ]));
-//     })
-// .catch((err)=>{
-//   console.log(err);
-// })
-// .then(done, fail);
-
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Origin", '*');
-//   res.header("Access-Control-Allow-Credentials", true);
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-//   res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-//   next();
-// })
-// app.set('views', path.join(__dirname, '/client/src/'))
-// app.set('view engine', 'ejs')
-app.use(express.static(path.join(__dirname)));
 // app.use('client/src', express.static(path.join(__dirname, '/client/src/')));
 // app.use(express.static(path.join(__dirname, '/client/')));
 
 app.get('/', function (req, res) {
-   res.sendFile(path.join(__dirname, '/client/public/' ));
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
 });
 
-app.get('/client/src/*', function (req, res) {
-  console.log("comes in here");
-  res.sendFile(path.join(__dirname, '/client/src/', req.params[0] ));
-});
+// app.get('/', function (req, res) {
+//    res.sendFile(path.join(__dirname, '/client/public/' ));
+// });
 
-app.get('/api/hello', (req, res) => {
-  res.send({ express: 'Hello From Express' });
-});
+// app.get('/client/src/*', function (req, res) {
+//   console.log("comes in here");
+//   res.sendFile(path.join(__dirname, '/client/src/', req.params[0] ));
+// });
+
+// app.get('/api/hello', (req, res) => {
+//   res.send({ express: 'Hello From Express' });
+// });
 
 // app.get('*', function (req, res) {
 //   res.send({ express: 'Hello From Express' });
@@ -140,11 +109,5 @@ VALUES ($1, $2, $3, $4, $5)`, values, function (err, rows, fields) {
       .then(() => release())
   })
 })
-
-
-
-// app.get('/src', function (req, res) {
-//     res.sendFile(path.join(__dirname));
-//   });
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
