@@ -23,7 +23,8 @@ class SavingsChart extends Component{
         super(props);
         this.state={
             system_size: 1,
-            bucket_savings: update_max_bucket_savings(props.monthlyBillingAmount)
+            bucket_savings: "$0"
+            // bucket_savings: this.update_max_bucket_savings(props.monthlyBillingAmount)
         }
      }
 
@@ -40,16 +41,16 @@ class SavingsChart extends Component{
     render() {
         const {monthlyBillingAmount} = this.props;
         const {system_size, bucket_savings} = this.state;
+        // this.update_max_bucket_savings(monthlyBillingAmount);
         return (
             <div>
                 {/* THIS div should have a grey background */}
                 <div>
                     
-                <MonthlyBill amount={monthlyBillingAmount}/>
+                {/* <MonthlyBill amount={monthlyBillingAmount}/> */}
 
                 You can save <br/>
-                <BucketSavings monthlyBillings={monthlyBillingAmount} bucket_savings={bucket_savings} />
-                <br/>
+                <BucketSavings monthlyBill={monthlyBillingAmount}/>
                 annual with 100% clean energy
 
                 </div>
@@ -96,43 +97,53 @@ class MonthlyBill extends React.Component{
 };
 
 class BucketSavings extends React.Component{
+    get_max_bucket_savings=(monthlyBillings)=>{
+        console.log("MONTHLY BILL FOR BUCKET SAVINGS: "+ monthlyBillings);
+        var annualBill = monthlyBillings * 12;
+        var bucket;
+        var bucketSavingsString = "$0";
+        if (annualBill < 1000){
+            bucket = 500;
+        }
+        else{
+            bucket = Math.floor(annualBill / 1000) * 1000;
+        }
+        console.log("bucket is: "+bucket);
+    
+        const url = "https://wipomo-zoho-database.herokuapp.com/db/" + bucket;
+    
+        const myFetch = fetch(url);
+    
+    
+        myFetch.then((response)=>{
+            response.text().then((text)=> {
+                 console.log("fetch return value: "+ text);
+                return JSON.parse(text);
+            })
+            .then((data)=>{
+                 const text = document.getElementById("bucket_savings");
+                var percentage = data[0]["max_discount_percentage"];
+                var bucketSavings = bucket * percentage;
+                //this.setState({bucket_savings: bucketSavings});
+                bucketSavingsString = "$" + bucketSavings;
+                 text.innerText = bucketSavingsString;
+
+                console.log("last string" + bucketSavingsString);
+                //return bucketSavingsString;
+            })
+            // .then(response => {return response} )
+            // console.log("LAst String: "+ val)
+        });
+    
+        //return bucketSavingsString;  
+    }
     render=()=>{
-        return <div id="bucket_savings"> {this.props.bucket_savings} </div>
+         this.get_max_bucket_savings(this.props.monthlyBill);
+        return <div id="bucket_savings"> </div>
     }
 };
 
-var update_max_bucket_savings = function (monthlyBillings) {
-    console.log("MONTHLY BILL FOR BUCKET SAVINGS: "+monthlyBillings);
-    var annualBill = monthlyBillings * 12;
-    var bucket;
-    if (annualBill < 1000){
-        bucket = 500;
-    }
-    else{
-        bucket = Math.floor(annualBill / 1000) * 1000;
-    }
 
-    var url = "https://wipomo-zoho-database.herokuapp.com/db/" + bucket;
-
-
-    fetch(url)
-        .then((response) => {
-            return response.text()
-        })
-        .then((responseInText) => {
-            return JSON.parse(responseInText)
-        })
-        .then((data) => {
-            var percentage = data[0]["max_discount_percentage"];
-            var bucketSavings = bucket * percentage;
-            var bucketSavingsString = "$" + bucketSavings
-            return bucketSavingsString;
-        })
-        .catch(function (e) {
-            console.warn("SHOULLD NEVER COME IN HERE!!!");
-            console.log(e);
-        })
-}
 
 var get_system_size_data = function (monthlyBillings, system_size) {
     //var numberOfMonthsInAYear = 12;
