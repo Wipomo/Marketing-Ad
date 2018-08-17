@@ -281,7 +281,9 @@ class App extends Component{
                     {/* we add the exact so its route does not match other routes */}
 
                     {/* {view} */}
+                    Hi World<br/>
                     {this.state.response}
+
 
                 </div>
             </div>
