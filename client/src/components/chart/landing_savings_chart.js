@@ -98,6 +98,19 @@ export default class MakelloHighChart {
                     rotation: 0,
                     margin: 45
                 },
+                labels: {
+                    formatter: function() {
+                        if (this.value >= 0){
+                            return `$${this.value/1000}K`;
+                        }
+                        else{
+                            return `-$${(this.value/1000)*(-1)}K`
+                        }
+                    },
+                    style: {
+                        fontSize: 14
+                    }
+                }
             },
             legend: {
                 layout: 'vertical',
@@ -115,8 +128,7 @@ export default class MakelloHighChart {
             },
             series: [{
                 name: 'Total Monthly Savings',
-                data: this.data,
-                // dashStyle:'LongDash' 
+                data: this.data
             }],
 
         });
