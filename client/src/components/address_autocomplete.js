@@ -66,7 +66,7 @@ class AddressInput extends Component{
       }
 
     render(){
-    return <input placeholder="Enter full address*"/>
+    return <input placeholder="Enter full address*" value={this.props.fullAddress} onChange={this.props.fullAddressStateHandler}/>
     }
    
 }

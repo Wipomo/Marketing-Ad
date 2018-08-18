@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Button} from './components';
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import SavingsChart from "./landing_savings";
 import "./LandingSavings.css";
 import AddressInput from "./components/address_autocomplete"
 import {Redirect} from "react-router-dom";
+
+
 
 
 
@@ -16,12 +18,18 @@ class SavingsChartandCustomerData extends Component {
   }
 
   handleBtnClick = () =>{
-      this.setState({toEVPage: true});
-  };
+    this.setState({toEVPage: true});
+    this.props.history.push('/ev');
+  }
+
 
   render() {
     if (this.state.toEVPage){
-      return <Redirect to='/ev' />
+      this.setState({toEVPage: false});
+      // browserHistory.push('/ev');
+      // this.context.router.push('/savings');
+      // this.props.history.push('/ev')
+      // return <Redirect from='/savings' to='/ev' />
     }
     return (
       <div id="s-landingContainer">
@@ -42,9 +50,9 @@ class SavingsChartandCustomerData extends Component {
           <div id="formContainer">
             <form>
               <h2> Get a custom energy report from Makello.</h2>
-              <input name ="fullName" placeholder="Full Name*" onChange={this.props.fullNameStateHandler}></input><br/>
-              <input name="phone" placeholder="Phone" onChange={this.props.phoneStateHandler}></input><br/>
-              <AddressInput onChange={this.props.fullAddressStateHandler}/><br/>
+              <input name ="fullName" value={this.props.fullName} placeholder="Full Name*" onChange={this.props.fullNameStateHandler}></input><br/>
+              <input name="phone" value={this.props.phone}placeholder="Phone" onChange={this.props.phoneStateHandler}></input><br/>
+              <AddressInput fullAddressStateHandler={this.props.fullAddressStateHandler} fullAddress={this.props.fullAddress}/><br/>
               {/* <input id="autocomplete" name="fullAddress" className="controls" type="text" placeholder="Enter full address*"
                 onFocus={this.fillInAddress} ></input><br/> */}
               <Button onClick={this.handleBtnClick} disabled={this.props.disableSavingsPageBtn}/>
@@ -59,4 +67,4 @@ class SavingsChartandCustomerData extends Component {
   }
 }
  
-export default SavingsChartandCustomerData;
+export default withRouter(SavingsChartandCustomerData);

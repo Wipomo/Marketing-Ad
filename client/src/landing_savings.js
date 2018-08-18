@@ -24,7 +24,6 @@ class SavingsChart extends Component{
         this.state={
             system_size: 1,
             bucket_savings: "$0"
-            // bucket_savings: this.update_max_bucket_savings(props.monthlyBillingAmount)
         }
      }
 

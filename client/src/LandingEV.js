@@ -17,7 +17,7 @@ class EVPage extends Component {
         dailyMileage={this.props.dailyMileage} milesPerGallon={this.props.milesPerGallon}
         dailyMileageHandler={this.props.dailyMileageHandler} milesPerGallonHandler={this.props.milesPerGallonHandler}
         disableEVPageBtn={this.props.disableEVPageBtn} handleBtnClick={this.props.handleBtnClick}/> 
-
+        
       </div>
     );
   }

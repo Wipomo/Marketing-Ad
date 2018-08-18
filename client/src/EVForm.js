@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button} from './components';
 import './EVForm.css';
-import {Redirect} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 // import './vehicleFormData/vehicleData.js';
 
 
@@ -12,19 +12,22 @@ class EVForm extends React.Component {
 
 handleBtnClick = () =>{
     this.setState({toThankYouPage: true});
+    this.props.history.push('/thanks');
+
 };
 
 
   render() {
     if(this.state.toThankYouPage){
-      return <Redirect to='/thanks' />
+      this.setState({toThankYouPage: false});
+      //return <Redirect from='/ev' to='/thanks' />
     }
 
     return(
           
         <form>
             <label>What is your daily commute in miles?</label><br/>
-            <input name="milesDaily" onChange={this.props.dailyMileageHandler}></input><br/>
+            <input name="milesDaily" onChange={this.props.dailyMileageHandler} value={this.props.dailyMileage}></input><br/>
             <div id ="different-alignment">
             <label>Vehicle Type</label><br/>
               <select id= "vehicleMake" name="vehicleMake" onChange={this.props.vehicleMakeHandler}>
@@ -73,13 +76,14 @@ handleBtnClick = () =>{
               </select><br/>
             </div>
 
-              <label>How many miles per gallon do you drive per year?</label><br/>
-            <input name="milesPerGallon" onChange={this.props.milesPerGallonHandler}></input><br/>
+              <label>What is your vehicles miles per gallon ?</label><br/>
+            <input name="milesPerGallon" value={this.props.milesPerGallon} onChange={this.props.milesPerGallonHandler}></input><br/>
             <Button onClick={this.handleBtnClick} disabled={this.props.disableEVPageBtn} />
         </form>
+
     )
   }
 }
   
 
-export default EVForm;
+export default withRouter(EVForm);

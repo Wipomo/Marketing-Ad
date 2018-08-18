@@ -1,16 +1,24 @@
 import React from 'react';
 import {Email, WipomoSlider, BillAmount, Button} from '../../components';
-import { Link, Redirect} from "react-router-dom";
+import { Link, Redirect, withRouter} from "react-router-dom";
+
 
 class LandingPageBox extends React.Component{
 
     state = {
         toSavings: false
     }
+    // ask for `router` from context
+//   contextTypes= {
+//     router: React.PropTypes.func.isRequired,
+//   }
+
 
     handleBtnClick = () =>{
         this.setState({toSavings: true});
-    };
+        this.props.history.push('/savings');
+    }
+
 
     render(){
         const savings ={
@@ -18,8 +26,11 @@ class LandingPageBox extends React.Component{
             state: {amount: 60}
         }
     if (this.state.toSavings){
-        // this.setState({toSavings: false})
-        return <Redirect to='/savings' />
+        this.setState({toSavings: false})
+        //  browserHistory.push('/savings');
+        // this.context.router.push('/savings');
+        //this.props.history.push('/savings');
+        // return <Redirect to='/savings' />
     }
 
     const {handleSliderChange, monthlyBill, email, emailStateHandler, disableLandingPageBtn} = this.props;
@@ -30,7 +41,7 @@ class LandingPageBox extends React.Component{
         
         <div id ="sliderContainer">
             <div id="sliderContent">
-                <WipomoSlider min="50" max="5000" step="50" onInput={handleSliderChange}/>
+                <WipomoSlider min="50" max="5000" step="50" onInput={handleSliderChange} monthlyBill={this.props.monthlyBill}/>
                 {/* Billing Amount should eventually be replaced with slider component css
                 <BillAmount amount={monthlyBill} /> */}
             </div>
@@ -50,4 +61,4 @@ class LandingPageBox extends React.Component{
 }
 }
 
-export default LandingPageBox
+export default withRouter(LandingPageBox)

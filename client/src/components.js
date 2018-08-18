@@ -35,7 +35,7 @@ export class WipomoSlider extends Component{
 
     render(){
         let {min,max,step, onInput} = this.props;
-        console.log(onInput);
+        //console.log(onInput);
         min = parseInt(min, 10);
         max = parseInt(max, 10);
         step = parseInt(step, 10);
@@ -60,7 +60,7 @@ export class WipomoSlider extends Component{
 
         return(
             <div style={sliderContainerStyle}>
-            <Slider marks={marks} trackStyle={sliderStyle} railStyle={sliderStyle} id="landing_p_slider" min={min} max={max} defaultValue={max/2} step={step} handle={handle} onChange={onInput} />
+            <Slider marks={marks} trackStyle={sliderStyle} railStyle={sliderStyle} id="landing_p_slider" min={min} max={max} defaultValue={this.props.monthlyBill} step={step} handle={handle} onChange={onInput} />
             </div>
         )
     }
@@ -87,7 +87,7 @@ export class Email extends Component{
     //     super(props);
     // }
     render(){
-        return <input placeholder="Email*" display="block" onChange={this.props.onChange}></input>
+        return <input placeholder="Email*" display="block" onChange={this.props.onChange} value={this.props.value}></input>
     }
 };
 

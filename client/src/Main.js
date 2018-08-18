@@ -13,7 +13,7 @@ class App extends Component{
 
     constructor(props){
         super(props);
-        this.state={monthlyBill:50, email:"",
+        this.state={monthlyBill:2500, email:'',
          givesEmailandMonthlyBill:false,
          givesNameandAddress:false,
          givesVehicleInfo: false,
@@ -25,15 +25,12 @@ class App extends Component{
          disableVehicleModel: true, disableCustomerDataButton:true,
          disableLandingPageBtn: true, disableEVPageBtn: true, disableSavingsPageBtn: true}
 
-        this.handleBtnClick = this.handleBtnClick.bind(this);
         this.handleSliderChange = this.handleSliderChange.bind(this);
         this.emailStateHandler = this.emailStateHandler.bind(this);
 
         this.fullNameStateHandler = this.fullNameStateHandler.bind(this);
         this.phoneStateHandler = this.phoneStateHandler.bind(this);
         this.fullAddressStateHandler = this.fullAddressStateHandler.bind(this);
-        // this.zipcodeStateHandler = this.zipcodeStateHandler.bind(this);
-        // this.cityStateHandler = this.cityStateHandler.bind(this);
 
         this.dailyMileageHandler = this.dailyMileageHandler.bind(this);
         this.milesPerGallonHandler = this.milesPerGallonHandler.bind(this);
@@ -66,10 +63,9 @@ class App extends Component{
 
         return body;
     };
-      
-    
 
     handleSliderChange=(value)=>{
+        console.log("Monthly Bill is: "+ value);
         this.setState({monthlyBill: value});
     }
     emailStateHandler=(e)=>{
@@ -84,7 +80,6 @@ class App extends Component{
         }
         else{
             this.setState({disableLandingPageBtn: true});
-
         }
     }
 
@@ -92,8 +87,12 @@ class App extends Component{
         console.log("Fullname"+ e.target.value);
         this.setState({fullName: e.target.value});
 
-        if(e.target.value !== "" && this.state.givesNameandAddress !== ""){
+        if(e.target.value !== "" && this.state.fullAddress !== ""){
             this.setState({disableSavingsPageBtn: false})
+        }
+        else{
+            this.setState({disableSavingsPageBtn: true})
+
         }
 
     }
@@ -111,6 +110,9 @@ class App extends Component{
         if(e.target.value !== "" && this.state.fullName !== ""){
             this.setState({disableSavingsPageBtn: false})
         }
+        else{
+            this.setState({disableSavingsPageBtn: true})
+        }
     }
 
     dailyMileageHandler=(e)=>{
@@ -118,7 +120,7 @@ class App extends Component{
         this.setState({dailyMileage: e.target.value});
 
         // confirm that all data has been entered
-        if(e.target.value === ""){
+        if(e.target.value === "" || e.target.value === 0){
             this.setState({disableEVPageBtn: true})
         }
         else if(this.state.vehicleMake!== ""){
@@ -131,7 +133,7 @@ class App extends Component{
         this.setState({milesPerGallon: e.target.value});
 
         // confirm that all data has been entered
-        if(e.target.value === ""){
+        if(e.target.value === "" || e.target.value === 0){
             this.setState({disableEVPageBtn: true})
         }
         else if(this.state.vehicleMake !== ""){
@@ -147,7 +149,7 @@ class App extends Component{
         this.setState({disableVehicleModel: false})
 
         // confirm that all data has been entered on savings page
-        if(this.state.weeklyMileage  !== 0 || this.state.yearlyMileage!==0){
+        if(this.state.dailyMileage  !== 0 || this.state.milesPerGallon!==0){
             this.setState({disableEVPageBtn: false})
         }
 
@@ -156,78 +158,9 @@ class App extends Component{
     vehicleModelHandler=(e)=>{
         console.log("Vehicle Model: "+ e.target.value);
         this.setState({vehicleModel: e.target.value})
-
-    }
-
-    handleBtnClick=()=>{
-        // took out 2 backslashes to eliminate some uneccesary backlash errors**
-        console.log("Comes in main page button");
-        //window.location("./stuff");
-
-        if(!this.state.givesEmailandMonthlyBill){
-            if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){
-                // store customer email and monthly bill in db,
-                //console.log("handle btn on email and monthly bill");
-                this.setState({givesEmailandMonthlyBill: true});           
-                // check if input fits required standard
-                console.log("Main set just gotta redirect to component page");
-                // <Redirect to='/savings'/>
-                //console.log(history);
-                //console.log();
-                console.log("Should have redirected to new page by this time");
-
-                //<Route path="/savings"  component={SavingsChartandCustomerData}/>        
-            }
-        }
-        else if(!this.state.givesNameandAddress){
-            if((this.state.fullName !== "")  && (this.state.fullAddress !== "")){
-                // we would need to validate fullAdress with Google Maps***
-                var googleValidated = true;
-                if(googleValidated){
-                    this.setState({givesNameandAddress: true});
-                    console.log("can set contact views to true");
-                }
-        
-            }
-        }
-        else if(!this.state.givesVehicleInfo){
-            console.log("Tests vehicle Info");
-            if(this.state.vehicleMake !== "" && (this.state.weeklyMileage !== 0 || this.state.yearlyMileage !== 0)){     
-                this.setState({givesVehicleInfo:true});
-            }
-            else{
-                console.log("FAILS TO SET VEHICLE INFO");
-            }
-        }   
     }
 
     render(){
-        // const history = createHistory();
-
-
-        // // Get the current location.
-        // const location = history.location;
-        
-        // // Listen for changes to the current location.
-        // const unlisten = history.listen((location, action) => {
-        //     // location is an object like window.location
-        //     console.log(action, location.pathname, location.state);
-        // })
-          
-        // // To stop listening, call the function returned from listen().
-        // unlisten()
-
-        // Use push, replace, and go to navigate around.
-        
-        // history.push(landing);
-        // history.replace(landing);
-        //console.log(history);
-
-        // const givesEmailandMonthlyBill = this.state.givesEmailandMonthlyBill;
-        // const givesNameandAddress = this.state.givesNameandAddress;
-        // const givesVehicleInfo = this.state.givesVehicleInfo;
-        // let view;
-
 
         return(
             // The HashRouter component provides
@@ -253,26 +186,26 @@ class App extends Component{
                     {/* <Route path="/" component={MonthlyAnnualElectricBill}/> */}
                     <Switch>
                     <Route exact path="/" render={(props)=>(
-                        <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.props.email} emailStateHandler={this.emailStateHandler} 
-                         handleSliderChange={this.handleSliderChange} handleBtnClick={this.handleBtnClick} disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
+                        <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler} 
+                         handleSliderChange={this.handleSliderChange}  disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
                     )}/>
 
                     <Route path="/landing" render={(props)=>(
-                        <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.props.email} emailStateHandler={this.emailStateHandler} 
-                         handleSliderChange={this.handleSliderChange} handleBtnClick={this.handleBtnClick} disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
+                        <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler} 
+                         handleSliderChange={this.handleSliderChange} disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
                     )}/>
 
                     <Route path="/savings" render={(props)=>(
                         <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName}
                         fullNameStateHandler={this.fullNameStateHandler} phone={this.state.phone} phoneStateHandler={this.fullNameStateHandler}
                         fullAddress={this.state.fullAddress} fullAddressStateHandler={this.fullAddressStateHandler}
-                        handleBtnClick={this.handleBtnClick} disableSavingsPageBtn= {this.state.disableSavingsPageBtn}/>  
+                        disableSavingsPageBtn= {this.state.disableSavingsPageBtn}/>  
                     )}/>
 
                     <Route path="/ev" render={(props)=>(
                         <EVPage dailyMileage={this.state.dailyMileage} milesPerGallon={this.state.milesPerGallon}
                         vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
-                        dailyMileageHandler={this.dailyMileageHandler} milesPerGallonHandler={this.milesPerGallonHandler} givesVehicleInfo={this.state.givesVehicleInfo} handleBtnClick={this.handleBtnClick}/> 
+                        dailyMileageHandler={this.dailyMileageHandler} milesPerGallonHandler={this.milesPerGallonHandler} givesVehicleInfo={this.state.givesVehicleInfo}/> 
                     )}/>
 
                     <Route path="/thanks" component={ThankYouRedirectPage}/>
@@ -283,7 +216,6 @@ class App extends Component{
                     {/* {view} */}
                     
                     {this.state.response}
-
 
                 </div>
             </div>
