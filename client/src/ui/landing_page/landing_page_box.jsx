@@ -41,7 +41,7 @@ class LandingPageBox extends React.Component{
         
         <div id ="sliderContainer">
             <div id="sliderContent">
-                <WipomoSlider min="50" max="5000" step="50" onInput={handleSliderChange} monthlyBill={this.props.monthlyBill}/>
+                <WipomoSlider id="wipomoSlider" min="50" max="5000" step="50" onInput={handleSliderChange} monthlyBill={this.props.monthlyBill}/>
                 {/* Billing Amount should eventually be replaced with slider component css
                 <BillAmount amount={monthlyBill} /> */}
             </div>

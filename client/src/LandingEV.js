@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EVForm from "./EVForm";
 import { Link} from "react-router-dom";
+import "./LandingEV.css";
 
 
 
