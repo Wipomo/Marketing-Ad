@@ -67,7 +67,7 @@ handleBtnClick = () =>{
               <select id="vehicleModel" name="vehicleModel" onChange={this.props.vehicleModelHandler} disabled={this.props.disableVehicleModel}>
               <option > Model </option>
                 <option > Model 1</option>
-                <option > Model 2 </option>
+                <option > Model 2</option>
                 <option > Model 3</option>
                 <option > Model 4</option>
               </select><br/>

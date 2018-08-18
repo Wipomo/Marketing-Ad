@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import EVForm from "./EVForm";
 import { Link} from "react-router-dom";
+import "./LandingEV.css";
 
 
 
@@ -17,7 +18,7 @@ class EVPage extends Component {
         dailyMileage={this.props.dailyMileage} milesPerGallon={this.props.milesPerGallon}
         dailyMileageHandler={this.props.dailyMileageHandler} milesPerGallonHandler={this.props.milesPerGallonHandler}
         disableEVPageBtn={this.props.disableEVPageBtn} handleBtnClick={this.props.handleBtnClick}/> 
-
+        
       </div>
     );
   }

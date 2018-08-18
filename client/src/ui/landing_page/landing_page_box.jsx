@@ -30,7 +30,7 @@ class LandingPageBox extends React.Component{
         
         <div id ="sliderContainer">
             <div id="sliderContent">
-                <WipomoSlider min="50" max="5000" step="50" onInput={handleSliderChange}/>
+                <WipomoSlider min="50" max="5000" step="50" onInput={handleSliderChange} id="wipomoSlider"/>
                 {/* Billing Amount should eventually be replaced with slider component css
                 <BillAmount amount={monthlyBill} /> */}
             </div>
