@@ -2,18 +2,18 @@
 import React, {Component } from 'react';
 import { Link, Route, Switch } from "react-router-dom";
 import MonthlyAnnualElectricBill from "./LandingPage";
-import SavingsChartandCustomerData from "./TempLandingSavings";
+import SavingsChartandCustomerData from "./LandingSavingsandCustomerInfo";
 import EVPage from "./LandingEV";
 import ThankYouRedirectPage from "./Redirect";
-import "./Main.css";
+import "./css/Main.css";
 
 
-
+const medianMonthlyBill = 2500;
 class App extends Component{
 
     constructor(props){
         super(props);
-        this.state={monthlyBill:2500, email:'',
+        this.state={monthlyBill:medianMonthlyBill, email:'',
          givesEmailandMonthlyBill:false,
          givesNameandAddress:false,
          givesVehicleInfo: false,
@@ -21,7 +21,7 @@ class App extends Component{
 
 
          fullName:"", phone: "", fullAddress:"", city: "", zipcode:"",
-         dailyMileage:0, milesPerGallon:0, vehicleMake: "", vehicleModel:"",
+         dailyMileage:"", milesPerGallon:"", vehicleMake: "", vehicleModel:"",
          disableVehicleModel: true, disableCustomerDataButton:true,
          disableLandingPageBtn: true, disableEVPageBtn: true, disableSavingsPageBtn: true}
 
@@ -120,7 +120,7 @@ class App extends Component{
         this.setState({dailyMileage: e.target.value});
 
         // confirm that all data has been entered
-        if(e.target.value === "" || e.target.value === 0){
+        if(!e.target.value){
             this.setState({disableEVPageBtn: true})
         }
         else if(this.state.vehicleMake!== ""){
@@ -133,7 +133,7 @@ class App extends Component{
         this.setState({milesPerGallon: e.target.value});
 
         // confirm that all data has been entered
-        if(e.target.value === "" || e.target.value === 0){
+        if(!e.target.value){
             this.setState({disableEVPageBtn: true})
         }
         else if(this.state.vehicleMake !== ""){
@@ -197,7 +197,7 @@ class App extends Component{
 
                     <Route path="/savings" render={(props)=>(
                         <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName}
-                        fullNameStateHandler={this.fullNameStateHandler} phone={this.state.phone} phoneStateHandler={this.fullNameStateHandler}
+                        fullNameStateHandler={this.fullNameStateHandler} phone={this.state.phone} phoneStateHandler={this.phoneStateHandler}
                         fullAddress={this.state.fullAddress} fullAddressStateHandler={this.fullAddressStateHandler}
                         disableSavingsPageBtn= {this.state.disableSavingsPageBtn}/>  
                     )}/>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LandingPageTitle from "./ui/landing_page/landing_page_title"
 import LandingPageBox from "./ui/landing_page/landing_page_box"
-import "./LandingPage.css";
+import "./css/LandingPage.css";
 
 
 class MonthlyAnnualElectricBill extends Component
@@ -29,7 +29,8 @@ class MonthlyAnnualElectricBill extends Component
                    <LandingPageTitle /> 
                     
                     {/* below div should have a white background color */}
-                    <LandingPageBox handleSliderChange = {handleSliderChange} monthlyBill = {monthlyBill} email = {email} emailStateHandler = {emailStateHandler} disableLandingPageBtn = {disableLandingPageBtn}/> 
+                    <LandingPageBox handleSliderChange = {handleSliderChange} monthlyBill = {monthlyBill} 
+                    email = {email} emailStateHandler = {emailStateHandler} disableLandingPageBtn = {disableLandingPageBtn}/> 
                 </div>
             );
          }

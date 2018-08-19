@@ -1,6 +1,6 @@
 // import HighChart from 'highcharts';
 import React, {Component } from "react"; 
-import MakelloHighChart from './components/chart/landing_savings_chart';
+import MakelloHighChart from './landing_savings_chart';
 
 const MIN_YEAR = 2018;
 const MAX_YEAR = 2026;

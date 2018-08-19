@@ -87,7 +87,7 @@
     height: 100%;
     width: 100%;
     z-index: 1;
-    background: url('./images/landing-bg.jpg');
+    background: url('../images/landing-bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     /* background-attachment: fixed; */

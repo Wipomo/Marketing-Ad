@@ -1,12 +1,26 @@
 import React, { Component } from "react";
-import EVForm from "./EVForm";
-import { Link} from "react-router-dom";
-import "./LandingEV.css";
+import EVForm from "./components/EVForm";
+import { withRouter } from "react-router-dom";
+import "./css/LandingEV.css";
 
 
 
 class EVPage extends Component {
+  state = {
+    toThankYouPage: false
+    }
+  handleBtnClick = () =>{
+    this.setState({toThankYouPage: true});
+    this.props.history.push('/thanks');
+
+};
+
+
   render() {
+    if(this.state.toThankYouPage){
+      this.setState({toThankYouPage: false});
+    }
+
     return (
       // USe conditional rendering to detrmine weather to display ev form or not
       <div>
@@ -17,11 +31,11 @@ class EVPage extends Component {
         disableVehicleModel={this.props.disableVehicleModel}
         dailyMileage={this.props.dailyMileage} milesPerGallon={this.props.milesPerGallon}
         dailyMileageHandler={this.props.dailyMileageHandler} milesPerGallonHandler={this.props.milesPerGallonHandler}
-        disableEVPageBtn={this.props.disableEVPageBtn} handleBtnClick={this.props.handleBtnClick}/> 
+        disableEVPageBtn={this.props.disableEVPageBtn} handleBtnClick={this.handleBtnClick}/> 
         
       </div>
     );
   }
 }
 
-export default EVPage;
+export default withRouter(EVPage);
