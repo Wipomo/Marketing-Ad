@@ -1,10 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const googleMapsClient = require('@google/maps').createClient({
-  key: 'AIzaSyBq45y1WJCQZSY4smNIwLN__ZUNJk1fEMI',
-  // Promise: Promise
-});
+
 const port = process.env.PORT || 5000;
 const { Pool } = require('pg');
 const config = {
@@ -14,15 +11,9 @@ const config = {
   password: 'b82c2c1930f765df663ea587dba3d3a9f9a1e0065badbb08f0fff66e67ac1e5c',
   port: 5432
 };
-var arrayContaining = null;
-var objectContaining = null;
 
 
 app.use(express.static(path.join(__dirname,'client/build' )));
-// app.use(express.static(path.join(__dirname, 'client/build')));
-
-// app.use('client/src', express.static(path.join(__dirname, '/client/src/')));
-// app.use(express.static(path.join(__dirname, '/client/')));
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
