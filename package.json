@@ -9,7 +9,6 @@
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
-    "@google/maps": "^0.5.5",
     "express": "^4.16.2",
     "google-maps-react": "^2.0.2",
     "highcharts": "^6.1.1",
