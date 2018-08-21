@@ -9,13 +9,11 @@
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
-    "bluebird": "^3.5.1",
     "express": "^4.16.2",
     "google-maps-react": "^2.0.2",
     "highcharts": "^6.1.1",
     "history": "^4.7.2",
     "pg": "^7.4.3",
-    "pg-promise": "^8.4.6",
     "rc-slider": "^8.6.1",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
