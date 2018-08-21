@@ -9,9 +9,11 @@ const config = {
   user: 'mtaeawejracytu',
   database: 'dc31esd7lno8fu',
   password: 'b82c2c1930f765df663ea587dba3d3a9f9a1e0065badbb08f0fff66e67ac1e5c',
-  port: 5432
+  port: 5432,
+  ssl: true
 };
 
+const pool = new Pool(config);
 
 app.use(express.static(path.join(__dirname,'client/build' )));
 
