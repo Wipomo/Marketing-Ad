@@ -23,7 +23,7 @@ class App extends Component{
          dailyMileage:"", milesPerGallon:"", vehicleMake: "", vehicleModel:"",
 
          disableVehicleModel: true, disableCustomerDataButton:true,
-         disableLandingPageBtn: true, d, disableSavingsPageBtn: true}
+         disableLandingPageBtn: true, disableSavingsPageBtn: true}
 
         this.handleSliderChange = this.handleSliderChange.bind(this);
         this.emailStateHandler = this.emailStateHandler.bind(this);
