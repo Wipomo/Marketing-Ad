@@ -1,10 +1,10 @@
 import React, {Component } from 'react';
 import { Link, Route, Switch } from "react-router-dom";
-import MonthlyAnnualElectricBill from "./LandingPage";
-import SavingsChartandCustomerData from "./LandingSavingsandCustomerInfo";
-import EVPage from "./LandingEV";
+import MonthlyAnnualElectricBill from "./landing_page";
+import SavingsChartandCustomerData from "./landing_savings_and_customer_info";
+import EVPage from "./landing_ev";
 import ThankYouRedirectPage from "./thank_you_redirect_page";
-import "./css/Main.css";
+import "./css/main.css";
 
 
 const medianMonthlyBill = 2500;
@@ -13,16 +13,17 @@ class App extends Component{
     constructor(props){
         super(props);
         this.state={monthlyBill:medianMonthlyBill, email:'',
+        response: '', hasError: false, 
+
          givesEmailandMonthlyBill:false,
          givesNameandAddress:false,
          givesVehicleInfo: false,
-         hasError: false, response: '',
-
-
-         fullName:"", phone: "", fullAddress:"", city: "", zipcode:"",
+         
+         fullName:"", phone: "", fullAddress:"",
          dailyMileage:"", milesPerGallon:"", vehicleMake: "", vehicleModel:"",
+
          disableVehicleModel: true, disableCustomerDataButton:true,
-         disableLandingPageBtn: true, disableEVPageBtn: true, disableSavingsPageBtn: true}
+         disableLandingPageBtn: true, d, disableSavingsPageBtn: true}
 
         this.handleSliderChange = this.handleSliderChange.bind(this);
         this.emailStateHandler = this.emailStateHandler.bind(this);
@@ -144,6 +145,9 @@ class App extends Component{
         console.log("Vehicle Make: "+ e.target.value);
         this.setState({vehicleMake: e.target.value})
 
+        // populate vehicle model dropdown here
+
+
         //also set vehicle model dropdown disabled to false
         this.setState({disableVehicleModel: false})
 
@@ -202,7 +206,7 @@ class App extends Component{
                     )}/>
 
                     <Route path="/ev" render={(props)=>(
-                        <EVPage dailyMileage={this.state.dailyMileage} milesPerGallon={this.state.milesPerGallon}
+                        <EVPage dailyMileage={this.state.dailyMileage} milesPerGallon={this.state.milesPerGallon} vehicleMake={this.state.vehicleMake}
                         vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
                         dailyMileageHandler={this.dailyMileageHandler} milesPerGallonHandler={this.milesPerGallonHandler} givesVehicleInfo={this.state.givesVehicleInfo}/> 
                     )}/>

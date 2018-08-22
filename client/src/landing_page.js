@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import LandingPageTitle from "./ui/landing_page/landing_page_title"
 import LandingPageBox from "./ui/landing_page/landing_page_box"
-import "./css/LandingPage.css";
+import "./css/landing_page.css";
 
 
 class MonthlyAnnualElectricBill extends Component

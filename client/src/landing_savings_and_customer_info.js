@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button} from './components/components';
 import { withRouter } from "react-router-dom";
 import SavingsChart from "./components/landing_savings_page_top_section/landing_savings";
-import "./css/LandingSavings.css";
+import "./css/landing_savings.css";
 import AddressInput from "./components/address_autocomplete"
 
 
