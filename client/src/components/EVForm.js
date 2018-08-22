@@ -1,8 +1,7 @@
 import React from 'react';
 import {Button} from './components';
 import '../css/EVForm.css';
-import {Redirect, withRouter} from "react-router-dom";
-// import './vehicleFormData/vehicleData.js';
+import { withRouter} from "react-router-dom";
 
 
 class EVForm extends React.Component {

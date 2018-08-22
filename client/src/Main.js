@@ -1,10 +1,9 @@
-// This page may need the Makello header and footer as well.
 import React, {Component } from 'react';
 import { Link, Route, Switch } from "react-router-dom";
 import MonthlyAnnualElectricBill from "./LandingPage";
 import SavingsChartandCustomerData from "./LandingSavingsandCustomerInfo";
 import EVPage from "./LandingEV";
-import ThankYouRedirectPage from "./Redirect";
+import ThankYouRedirectPage from "./thank_you_redirect_page";
 import "./css/Main.css";
 
 

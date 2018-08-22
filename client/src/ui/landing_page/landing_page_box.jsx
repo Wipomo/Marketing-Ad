@@ -1,5 +1,5 @@
 import React from 'react';
-import {Email, WipomoSlider, BillAmount, Button} from '../../components/components';
+import {Email, WipomoSlider, Button} from '../../components/components';
 import {withRouter} from "react-router-dom";
 
 const min_slider_value= 50;
@@ -44,7 +44,7 @@ class LandingPageBox extends React.Component{
         
         <div id ="sliderContainer">
             <div id="sliderContent">
-                <WipomoSlider id="wipomoSlider" min={min_slider_value} max={max_slider_value} step={slider_increment_step} onInput={handleSliderChange} monthlyBill={this.props.monthlyBill}/>
+                <WipomoSlider id="wipomoSlider" min={min_slider_value} max={max_slider_value} step={slider_increment_step} onInput={handleSliderChange} monthlyBill={monthlyBill}/>
                 {/* Billing Amount should eventually be replaced with slider component css
                 <BillAmount amount={monthlyBill} /> */}
             </div>

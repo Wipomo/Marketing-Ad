@@ -1,4 +1,3 @@
-// import HighChart from 'highcharts';
 import React, {Component } from "react"; 
 import MakelloHighChart from './landing_savings_chart';
 

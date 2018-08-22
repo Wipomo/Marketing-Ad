@@ -22,7 +22,7 @@ class EVPage extends Component {
     }
 
     return (
-      // USe conditional rendering to detrmine weather to display ev form or not
+      // Use conditional rendering to detrmine weather to display ev form or not
       <div>
 
         <h2>Interested to see how much an electric car can increase savings?</h2>
