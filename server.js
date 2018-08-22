@@ -103,4 +103,39 @@ VALUES ($1, $2, $3, $4, $5)`, values, function (err, rows, fields) {
   })
 })
 
+// Listen to POST requests on particular link
+app.get('/dbtest/post', (req, res)=>{
+//   console.log("At least gets in post method..");
+//   db.tx(t => {
+//    console.log("gets into db transaction");
+//    return t.none(`INSERT INTO customers(customer_id, full_name, email, monthly_bill, full_address, contact_number, daily_mileage, miles_per_gallon, vehicle_model, vehicle_make ) values($1, $2, $3, $4, $5, $6, $7, %8, $9, $10)`,
+//    [ 2, 'test_name', 'test_email', 2000, '1 Address Way', 858, 10, 50, 'Vehicle Model', 'Vehicle Make'])
+//      .then(()=>{
+//          console.log("Entered database!");
+//      })
+//      .catch(error=>{
+//        console.log("Database ERROR...");
+//        console.log('ERROR:', error); // print the error;
+//      })
+//      .finally(db.$pool.end);
+//    });
+  pool.connect((err, client, release) => {
+   if (err) {
+     return console.error('Error acquiring client', err.stack)
+   }
+   // SQL Query > Select Data
+   client.query(`INSERT INTO customers(customer_id, full_name, email, monthly_bill, full_address, contact_number, daily_mileage, miles_per_gallon, vehicle_model, vehicle_make ) values($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
+     [ 2, 'test_name', 'test_email', 2000, '1 Address Way', 858, 10, 50, 'Vehicle Model', 'Vehicle Make'])
+       .then(()=>{
+           console.log("Entered database!");
+       })
+       .catch(error=>{
+         console.log("Database ERROR...");
+         console.log('ERROR:', error); // print the error;
+       })
+       .then(() => release())
+       //.finally(db.$pool.end);
+   })
+})
+
 app.listen(port, () => console.log(`Listening on port ${port}`));
