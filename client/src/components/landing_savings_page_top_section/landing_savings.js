@@ -119,12 +119,11 @@ class BucketSavings extends React.Component{
                 return JSON.parse(text);
             })
             .then((data)=>{
-                 const text = document.getElementById("bucket_savings");
+                const text = document.getElementById("bucket_savings");
                 var percentage = data[0]["max_discount_percentage"];
                 var bucketSavings = bucket * percentage;
-                //this.setState({bucket_savings: bucketSavings});
                 bucketSavingsString = "$" + bucketSavings;
-                 text.innerText = bucketSavingsString;
+                text.innerText = bucketSavingsString;
 
                 console.log("last string" + bucketSavingsString);
                 //return bucketSavingsString;
@@ -137,7 +136,7 @@ class BucketSavings extends React.Component{
     }
     render=()=>{
          this.get_max_bucket_savings(this.props.monthlyBill);
-        return <div id="bucket_savings"> </div>
+        return <div id="bucket_savings">$0</div>;
     }
 };
 

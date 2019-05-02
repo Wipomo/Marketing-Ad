@@ -4,6 +4,7 @@ import MonthlyAnnualElectricBill from "./landing_page";
 import SavingsChartandCustomerData from "./landing_savings_and_customer_info";
 import EVPage from "./landing_ev";
 import ThankYouRedirectPage from "./thank_you_redirect_page";
+import Customer from './components/Customer';
 import "./css/main.css";
 
 
@@ -12,11 +13,11 @@ class App extends Component{
 
     constructor(props){
         super(props);
-        this.state={monthlyBill:medianMonthlyBill, email:'',
+        this.state={monthlyBill:medianMonthlyBill, email:Customer.email,
         response: '', hasError: false, 
 
-         givesEmailandMonthlyBill:false,
-         givesNameandAddress:false,
+         givesEmailandMonthlyBill: false,
+         givesNameandAddress: false,
          givesVehicleInfo: false,
          
          fullName:"", phone: "", fullAddress:"",
@@ -68,9 +69,11 @@ class App extends Component{
         console.log("Monthly Bill is: "+ value);
         this.setState({monthlyBill: value});
     }
+
     emailStateHandler=(e)=>{
         console.log(e.target.value);
         this.setState({email: e.target.value});
+        // Customer.emailStateHandler(e.target.value);
         if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.email)){
             // store customer email and monthly bill in db,
             console.log("passes email set disabled to false");
@@ -180,6 +183,8 @@ class App extends Component{
                     <li><Link to="/savings">Savings/Form Page</Link></li>
                     <li><Link to="/ev">Electric Vehicles Page</Link></li>
                     <li><Link to="/thanks">Thank you Page</Link></li>
+                    <li><Link to="/redirect">Redirect page</Link></li>
+
                 </ul>
 
                 <div className="content">
@@ -189,8 +194,19 @@ class App extends Component{
                     {/* <Route path="/" component={MonthlyAnnualElectricBill}/> */}
                     <Switch>
                     <Route exact path="/" render={(props)=>(
+                        <div>
                         <MonthlyAnnualElectricBill monthlyBill={this.state.monthlyBill} email={this.state.email} emailStateHandler={this.emailStateHandler} 
                          handleSliderChange={this.handleSliderChange}  disableLandingPageBtn={this.state.disableLandingPageBtn}/>  
+                         
+                         <SavingsChartandCustomerData amount={this.state.monthlyBill} fullName={this.state.fullName}
+                         fullNameStateHandler={this.fullNameStateHandler} phone={this.state.phone} phoneStateHandler={this.phoneStateHandler}
+                         fullAddress={this.state.fullAddress} fullAddressStateHandler={this.fullAddressStateHandler}
+                         disableSavingsPageBtn= {this.state.disableSavingsPageBtn}/> 
+
+                         <EVPage dailyMileage={this.state.dailyMileage} milesPerGallon={this.state.milesPerGallon} vehicleMake={this.state.vehicleMake}
+                        vehicleMakeHandler={this.vehicleMakeHandler} vehicleModelHandler={this.vehicleModelHandler} disableVehicleModel={this.state.disableVehicleModel} disableEVPageBtn={this.state.disableEVPageBtn}
+                        dailyMileageHandler={this.dailyMileageHandler} milesPerGallonHandler={this.milesPerGallonHandler} givesVehicleInfo={this.state.givesVehicleInfo}/> 
+</div>
                     )}/>
 
                     <Route path="/landing" render={(props)=>(
@@ -212,6 +228,10 @@ class App extends Component{
                     )}/>
 
                     <Route path="/thanks" component={ThankYouRedirectPage}/>
+                    <Route path="/redirect" render={(props)=>(
+                        <span>Hello Redirect page</span>
+                    )}/>
+
                     </Switch>
 
                     {/* we add the exact so its route does not match other routes */}

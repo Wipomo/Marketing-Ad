@@ -30,7 +30,7 @@ class EVForm extends React.Component {
             <label>Vehicle Type</label><br/>
               <select id= "vehicleMake" name="vehicleMake" onChange={this.props.vehicleMakeHandler}>
               {Object.keys(vehicle).map( vehicleMake => {
-                return <option>{vehicleMake}</option>
+                return <option key={vehicleMake}>{vehicleMake}</option>
                } )
             }
                
@@ -47,7 +47,7 @@ class EVForm extends React.Component {
 
               <label>What is your vehicles miles per gallon ?</label><br/>
             <input name="milesPerGallon" value={this.props.milesPerGallon} onChange={this.props.milesPerGallonHandler}></input><br/>
-            <Button onClick={this.props.handleBtnClick} disabled={this.props.disableEVPageBtn} />
+            {/* <Button onClick={this.props.handleBtnClick} disabled={this.props.disableEVPageBtn} /> */}
         </form>
 
     )

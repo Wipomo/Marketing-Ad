@@ -9,8 +9,22 @@ class EVPage extends Component {
   state = {
     toThankYouPage: false
     }
+
   handleBtnClick = () =>{
     this.setState({toThankYouPage: true});
+    // call db to store customer data
+    console.log("Makes fetch call");
+
+    var url = ('/db_customer_posts/');
+    const myFetch = fetch(url);
+
+    myFetch.then(()=>{
+      console.log("calls link and is succesful !!!");
+    })
+    .catch((e)=>{
+          console.log("Error with link:"+ e);
+    })
+
     this.props.history.push('/thanks');
 
 };
