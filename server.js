@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+var passport = require('passport');
+var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
 const port = process.env.PORT || 3000;
 const { Pool } = require('pg');
@@ -16,9 +18,9 @@ const config = {
 const pool = new Pool(config);
 
 app.use(express.static(path.join(__dirname,'client/build' )));
+// app.use(express.static(path.join(__dirname,'client/src' )));
 
-var passport = require('passport');
-var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
+
 
 passport.use('provider', new OAuth2Strategy({
     authorizationURL: 'https://makellozohotestenv.herokuapp.com',
@@ -131,7 +133,7 @@ VALUES ($1, $2, $3, $4, $5)`, values, function (err, rows, fields) {
   })
 })
 
-.get('/db/:bucket', function (req, res) {
+app.get('/db/:bucket', function (req, res) {
   pool.connect((err, client, release) => {
     if (err) {
       return console.error('Error acquiring client', err.stack)
