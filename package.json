@@ -8,6 +8,9 @@
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
+  "engines": {
+    "yarn": "1.9.4"
+  },
   "dependencies": {
     "express": "^4.16.2",
     "google-maps-react": "^2.0.2",
