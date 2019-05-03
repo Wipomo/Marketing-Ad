@@ -15,7 +15,8 @@ const config = {
 
 const pool = new Pool(config);
 
-// app.use(express.static(path.join(__dirname,'client/build' )));
+app.use(express.static(path.join(__dirname,'client/build' )));
+
 var passport = require('passport');
 var OAuth2Strategy = require('passport-oauth').OAuth2Strategy;
 
@@ -52,6 +53,7 @@ app.get('/', function (req, res, next) {
   res.sendFile(path.join(__dirname, 'client/public/'));
   next();
 });
+
 app.get('/', function (req, res, next) {
   console.log("Comes in here too");
   res.sendFile(path.join(__dirname, 'client/public/build/static/js'));
